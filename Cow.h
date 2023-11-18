@@ -29,7 +29,7 @@ class Cow{
         array<RectangleShape, 2> upTexture;
         array<Texture, 2> textureForAnswer;
 
-        string answer;
+        string answer = "";
 
         void setText(Text& text, String str, float xpos, float ypos);
         void drawNum();

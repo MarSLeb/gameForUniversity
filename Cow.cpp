@@ -43,8 +43,16 @@ Cow::Cow(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background,
     //random answer
     random_device rd;  // a seed source for the random number engine
     mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-    uniform_int_distribution<> distrib(1000, 9999);
-    answer = to_string(distrib(gen));
+    uniform_int_distribution<> distrib(0, 9);
+    for(int i = 0; i < 4; i++){
+        string newNum = to_string(distrib(gen));
+        cout << answer << " " << newNum << " " << answer.find(newNum) << endl;
+        while(answer.find(newNum) != string::npos) {newNum = to_string(distrib(gen));
+        cout << answer << " " << newNum << endl;
+        }
+
+        answer += newNum;
+    }
 }
 
 void Cow::drawNum(){
