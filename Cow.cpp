@@ -46,11 +46,7 @@ Cow::Cow(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background,
     uniform_int_distribution<> distrib(0, 9);
     for(int i = 0; i < 4; i++){
         string newNum = to_string(distrib(gen));
-        cout << answer << " " << newNum << " " << answer.find(newNum) << endl;
-        while(answer.find(newNum) != string::npos) {newNum = to_string(distrib(gen));
-        cout << answer << " " << newNum << endl;
-        }
-
+        while(answer.find(newNum) != string::npos) {newNum = to_string(distrib(gen));}
         answer += newNum;
     }
 }
