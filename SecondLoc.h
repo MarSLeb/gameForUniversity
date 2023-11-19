@@ -31,6 +31,7 @@ class SecondLoc{
         array<Sprite, 7> potion;
         int curPotion = 8;
         bool finishPotioin = false;
+        bool havingBook;
 
         Potion potionPazzle;
 
@@ -42,14 +43,12 @@ class SecondLoc{
         shared_ptr<Player> player;
         shared_ptr<Book> book;
         unique_ptr<Deed> deed;
-        unique_ptr<Street> street;
         Setting setting;
 
         Texture noticeTexture;
         RectangleShape notice = RectangleShape(Vector2f(960, 540));
         bool noticeIsRun = false;
 
-        int countFinishMaze = 0;
         Sound sound;
         Music music;
         Sound notionSound;
@@ -62,11 +61,11 @@ class SecondLoc{
         void drawList();
         string createSaveString();
         void died();
+        void drawAll(float time);
     public:
         void setValue(bool flag);
-        void setPageInBook(int num);
         SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player, 
-            shared_ptr<Book> book, int finishMaze = 0, int listBool = 0);
+            shared_ptr<Book> book, bool havingBook, int listBool = 0);
         void setCurPotion(int num);
         void drawPotion();
         void run();

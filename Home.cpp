@@ -1,16 +1,20 @@
 #include "Home.h"
 #include <iostream>
 
-string Home::createSaveString() {return "h" + to_string(book->getPage());}
+string Home::createSaveString() {return "h" + to_string(book->getPage()) + to_string(havingBook);}
 
-Home::Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book, bool soundIsPlay):
+Home::Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
+bool havingBook, bool soundIsPlay):
     save(save), window(window), player(player), book(book), soundIsPlay(soundIsPlay){
     texture.loadFromFile("foto/home.png");
+    havingBook == true ? keyTexture.loadFromFile("foto/key.png") :
+                         keyTexture.loadFromFile("foto/keyNoBook.png");
     //upTexture.loadFromFile("foto/homeUp.png");
     ground.setTexture(texture);
     ground.setTextureRect(IntRect(0, 0, 1920, 540));
     ground.setPosition(0, 0);
     //upground.setTexture(&upTexture);
+    key.setTexture(&keyTexture);
 
     buffer.loadFromFile("muziek/step.ogg");
     sound.setBuffer(buffer);
@@ -52,15 +56,20 @@ void Home::goLeft(float time){
     else {player->goLeft(time);}
 }
 
-void Home::run(){
-    if(soundIsPlay) {music.play();}
-    else {sound.setVolume(0);}
-
+void Home::drawAll(){
     window->clear();
     window->draw(ground);
     player->draw();
     //window->draw(upground);
+    window->draw(key);
     window->display();
+}
+
+void Home::run(){
+    if(soundIsPlay) {music.play();}
+    else {sound.setVolume(0);}
+
+    drawAll();
 
     Clock clock;
     while (window->isOpen()){
@@ -80,7 +89,10 @@ void Home::run(){
                         break;
                     }
                 }
-                if(ev.key.code == Keyboard::F) {book->run(); book->setLocTexture(2);}
+                if(ev.key.code == Keyboard::F){
+                    drawAll();
+                    book->run();
+                }
             }   
         }
         float time = clock.getElapsedTime().asMicroseconds(); 
@@ -90,7 +102,6 @@ void Home::run(){
         if(Keyboard::isKeyPressed(Keyboard::S)){
             if(!rightBord.getContact(player->getX(), player->getY())){
                 goRight(time);
-                //player->goRight(time);
                 if (sound.getStatus() != sf::SoundSource::Status::Playing){
                     sound.play();
                 }
@@ -100,7 +111,6 @@ void Home::run(){
         else if(Keyboard::isKeyPressed(Keyboard::A)){
             if(!leftBord.getContact(player->getX(), player->getY())){
                 goLeft(time);
-                //player->goLeft(time);
                 if (sound.getStatus() != sf::SoundSource::Status::Playing){
                     sound.play();
                 }
@@ -126,10 +136,6 @@ void Home::run(){
             else {player->goDown(0);}
         }
 
-        window->clear();
-        window->draw(ground);
-        player->draw();
-        //window->draw(upground);
-        window->display();
+        drawAll();
     }
 }

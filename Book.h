@@ -14,8 +14,6 @@ class Book{
         int current;
         shared_ptr<RenderWindow> window;
         RectangleShape background = RectangleShape(Vector2f(960, 540));
-        Texture locTexture;
-        RectangleShape loc = RectangleShape(Vector2f(960, 540));
         Texture keyTexture;
         RectangleShape key = RectangleShape(Vector2f(960, 540));
         int page = 0;
@@ -25,7 +23,6 @@ class Book{
     public:
         int getPage();
         Book(shared_ptr<RenderWindow> window);
-        void setLocTexture(int num);
         void setPage(int num);
         void run();
 };

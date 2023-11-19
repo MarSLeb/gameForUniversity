@@ -29,7 +29,7 @@ void Player::goLeft(float time){
     hero.setTextureRect(IntRect(100 * int(current), 100, 100, 100));
     
     if(hero.getPosition().x > 0){
-        hero.move(-0.2 * time, 0);
+        hero.move(-0.1 * time, 0);
     }
 }
 
@@ -38,7 +38,7 @@ void Player::goRight(float time){
     if(current > 3) current -= 3;
     hero.setTextureRect(IntRect(100 * int(current), 200, 100, 100));
     if(hero.getPosition().x < 860) {
-        hero.move(0.2 * time, 0);
+        hero.move(0.1 * time, 0);
     }
 }
 
@@ -48,7 +48,7 @@ void Player::goUp(float time){
     hero.setTextureRect(IntRect(100 * int(current), 300, 100, 100));
 
     if(hero.getPosition().y > 0){
-        hero.move(0, -0.2 * time);
+        hero.move(0, -0.1 * time);
     }
 }
 
@@ -58,7 +58,7 @@ void Player::goDown(float time){
     hero.setTextureRect(IntRect(100 * int(current), 0, 100, 100));
 
     if(hero.getPosition().y < 440){
-        hero.move(0, 0.2 * time);
+        hero.move(0, 0.1 * time);
     }
 }
 int Player::getX(){

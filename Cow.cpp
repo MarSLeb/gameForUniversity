@@ -130,8 +130,12 @@ void Cow::drawAnswer(){
     for(int i = 0; i < 2; i++) {window->draw(upTexture[i]);}
 }
 
-bool Cow::run(){
+bool Cow::run(bool havingBook){
     background->setTexture(&texture);
+    if(!havingBook){
+        keyTexture.loadFromFile("foto/keyNoBook.png");
+        key.setTexture(&keyTexture);
+    }
     key.setTexture(&keyTexture);
     window->clear();
 
@@ -155,7 +159,7 @@ bool Cow::run(){
                 if(ev.key.code == Keyboard::S) {moveRight();}
                 if(ev.key.code == Keyboard::W) {moveUp();}
                 if(ev.key.code == Keyboard::R) {moveDown();}
-                if(ev.key.code == Keyboard::F) {book->setLocTexture(5); book->run();}
+                if(ev.key.code == Keyboard::F && havingBook) {book->run();}
                 if(ev.key.code == Keyboard::T) {
                     auto checkRes = check();
                     if(checkRes.first == 4 && checkRes.second == 0) {return true;}

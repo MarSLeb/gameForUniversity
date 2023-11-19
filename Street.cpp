@@ -1,12 +1,13 @@
 #include "Street.h"
 #include <iostream>
 
-Street::Street(int save, shared_ptr<RenderWindow> window, shared_ptr<Book> book, shared_ptr<Player> player):
-window(window), book(book), player(player){
+Street::Street(int save, shared_ptr<RenderWindow> window, shared_ptr<Book> book, shared_ptr<Player> player, bool havingBook):
+window(window), book(book), player(player), havingBook(havingBook){
     texture.loadFromFile("foto/street.png");
     upSprite.loadFromFile("foto/street/sprite.png");
     upHalf.loadFromFile("foto/street/half.png");
-    keyTexture.loadFromFile("foto/key.png");
+    havingBook == true ? keyTexture.loadFromFile("foto/key.png") :
+                         keyTexture.loadFromFile("foto/keyNoBook.png");
 
     background.setTexture(&texture);
     sprite.setTexture(&upSprite);
@@ -58,7 +59,7 @@ window(window), book(book), player(player){
     rightBord = Borders(rightLines);
 }
 
-string Street::createSaveString() {return ("s" + to_string(book->getPage()));}
+string Street::createSaveString() {return ("s" + to_string(book->getPage()) + to_string(havingBook));}
 
 void Street::setPageInBook(int num) {book->setPage(num);}
 
@@ -81,7 +82,7 @@ bool Street::drawRepl(){
     else if(x >= 450 && x <= 560 && y >= 210 && y <= 360) {say.loadFromFile("foto/street/kim.png");}
     else if(x <= 280 && y >= 270 && y <= 400) {music.pause(); setting.died(); deed->died(soundIsPlay); return false;}
     else if(x >= 580 && y >= 270 && y <= 400){
-        Home home = Home(save, window, player, book, soundIsPlay);
+        Home home = Home(save, window, player, book, soundIsPlay, havingBook);
         sound.pause();
         home.run();
         return false;
@@ -123,6 +124,15 @@ bool Street::drawRepl(){
     }
 }
 
+void Street::drawAll(){
+    window->clear();
+    window->draw(background);
+    player->draw();
+    drawUp();
+    window->draw(key);
+    window->display();
+}
+
 void Street::setValue(bool flag) {soundIsPlay = flag;}
 
 void Street::run(int num){
@@ -136,13 +146,7 @@ void Street::run(int num){
     if(soundIsPlay) {music.play();}
     else {sound.setVolume(0); music.play(); music.pause();}
 
-    book->setLocTexture(3);
-    window->clear();
-    window->draw(background);
-    player->draw();
-    drawUp();
-    window->draw(key);
-    window->display();
+    drawAll();
 
     Clock clock;
     while(window->isOpen()){
@@ -162,7 +166,10 @@ void Street::run(int num){
                         break;
                     }
                 }
-                if(event.key.code == Keyboard::F) {book->run(); book->setLocTexture(3);}
+                if(event.key.code == Keyboard::F && havingBook){
+                    drawAll();
+                    book->run();
+                }
                 if(event.key.code == Keyboard::T) {if(!drawRepl()) {return;}}
             }
         }
@@ -208,11 +215,6 @@ void Street::run(int num){
             else {player->goDown(0);}
         }
         
-        window->clear();
-        window->draw(background);
-        player->draw();
-        drawUp();
-        window->draw(key);
-        window->display();
+        drawAll();
     }
 }

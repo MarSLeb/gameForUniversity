@@ -23,7 +23,6 @@ class FirstLoc{
         RectangleShape upground = RectangleShape(Vector2f(960, 540));
         Texture keyTexture;
         RectangleShape key = RectangleShape(Vector2f(960, 540));
-        unique_ptr<SecondLoc> loc;
         Texture bookTexture;
         RectangleShape bookSprite = RectangleShape(Vector2f(960, 540));
 
@@ -46,12 +45,13 @@ class FirstLoc{
         bool bookInLoc = true;
         string createSaveString();
         void drawBook();
+        void drawAll();
     public:
         void setBookInLoc(bool flag);
         void setPageInBook(int num);
         void setAnswer(string answer);
         FirstLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player, shared_ptr<Book> book);
-        void runFirstLoc();
+        void run();
 };
 
 

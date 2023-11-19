@@ -17,8 +17,11 @@ class Home{
         Sprite ground;
         Texture upTexture;
         RectangleShape upground = RectangleShape(Vector2f(960, 540));
+        Texture keyTexture;
+        RectangleShape key = RectangleShape(Vector2f(950, 540));
 
         float xForTexture = 0.;
+        bool havingBook;
 
         shared_ptr<Player> player;
         shared_ptr<Book> book;
@@ -38,7 +41,9 @@ class Home{
         void goRight(float time);
         void goLeft(float time);
         string createSaveString();
+        void drawAll();
     public:
-        Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book, bool soundIsPlay = true);
+        Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
+            bool havingBook,  bool soundIsPlay = true);
         void run();
 };

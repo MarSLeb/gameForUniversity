@@ -18,7 +18,6 @@ void Potion::left(){
 }
 
 int Potion::run(){
-    book->setLocTexture(6);
     key.setTexture(&keyTexture);
     ground.setTexture(&texture);
     upground.setTexture(&upTexture[curTexture]);

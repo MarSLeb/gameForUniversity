@@ -3,9 +3,8 @@
 #include <string>
 
 SecondLoc::SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player,
-shared_ptr<Book> book, int finishMaze, int listBool):
-window(window), background(background), player(player), book(book), save(save){
-    countFinishMaze = finishMaze;
+shared_ptr<Book> book, bool havingBook, int listBool):
+window(window), background(background), player(player), book(book), save(save), havingBook(havingBook){
     listBool == 1 ? listIsEmpty = true : listIsEmpty = false;
 
     for(int i = 0; i < 3; i++) {potionTexture[i].loadFromFile("foto/potion/" + to_string(i + 1) + ".png");}
@@ -22,7 +21,8 @@ window(window), background(background), player(player), book(book), save(save){
 
     texture.loadFromFile("foto/second.png");
     listTexture.loadFromFile("foto/potion/list.png");
-    keyTexture.loadFromFile("foto/key.png");
+    havingBook == true ? keyTexture.loadFromFile("foto/key.png") :
+                         keyTexture.loadFromFile("foto/keyNoBook.png");
     upTexture.loadFromFile("foto/secondUp.png");
     list.setTexture(&listTexture);
     noticeTexture.loadFromFile("foto/notion.png");
@@ -51,7 +51,6 @@ window(window), background(background), player(player), book(book), save(save){
     potionPazzle = Potion(window, book);
     setting = Setting(save, window, texture);
     deed = make_unique<Deed>(window);
-    street = make_unique<Street>(save, window, book, player);
 
     buffer.loadFromFile("muziek/step.ogg");
     sound.setBuffer(buffer);
@@ -72,13 +71,10 @@ void SecondLoc::drawPotion(){
     }
 }
 
-void SecondLoc::setPageInBook(int num) {
-    book->setPage(num); 
-    num == 0 ? listIsEmpty = false : listIsEmpty = true;
+string SecondLoc::createSaveString(){
+    return ("2" + to_string(book->getPage()) + " " +
+            to_string(listIsEmpty == true) + to_string(curPotion) + to_string(havingBook));
 }
-
-string SecondLoc::createSaveString() {return ("2" + to_string(book->getPage()) + " " +
-                                     to_string(listIsEmpty == true) + to_string(curPotion));}
 
 void SecondLoc::drawList(){
     if(listIsEmpty) {return;}
@@ -92,8 +88,19 @@ void SecondLoc::died(){
 
 void SecondLoc::setValue(bool flag) {soundIsPlay = flag;}
 
+void SecondLoc::drawAll(float time){
+    window->clear();
+        window->draw(*background);
+        drawList();
+        player->draw();
+        window->draw(upground); 
+        drawPotion();
+        window->draw(key);
+        if(noticeIsRun && time < 2.5) {window->draw(notice);}
+        window->display();
+}
+
 void SecondLoc::run(){
-    book->setLocTexture(2);
     background->setTexture(&texture);
     upground.setTexture(&upTexture);
     key.setTexture(&keyTexture);
@@ -102,19 +109,11 @@ void SecondLoc::run(){
     if(soundIsPlay) {music.play();}
     else {sound.setVolume(0);}
 
-    window->clear();
-    window->draw(*background);
-    drawList();
-    player->draw();
-    window->draw(upground);
-    drawPotion();
-    window->draw(key);
-    window->display();
+    drawAll(0);
 
     Clock clock;
     Clock clockForNotice;
     while(window->isOpen()){
-        book->setLocTexture(2);
         Event ev;
         if(!noticeIsRun) {clockForNotice.restart();}
         while(window->pollEvent(ev)){
@@ -133,7 +132,10 @@ void SecondLoc::run(){
                         break;
                     }
                 }
-                if(ev.key.code == Keyboard::F) {book->run(); book->setLocTexture(2);}
+                if(ev.key.code == Keyboard::F && havingBook){
+                    drawAll(clockForNotice.getElapsedTime().asSeconds());
+                    book->run();
+                }
                 if(ev.key.code == Keyboard::T){
                     if(!noticeIsRun && player->getX() >= 800 && player->getX() <= 960 && player->getY() >= 240){
                         listIsEmpty = true;
@@ -147,7 +149,11 @@ void SecondLoc::run(){
                         if(curPotion == 6 || curPotion == 3 || curPotion == 2) {music.pause(); died(); return;}
                     }
                     if(player->getX() >= 330 && player->getX() <= 440 && player->getY() <= 195){
-                        music.pause(); street->setValue(soundIsPlay); street->run(curPotion); return;
+                        Street loc = Street(save, window, book, player, havingBook);
+                        music.pause(); 
+                        loc.setValue(soundIsPlay); 
+                        loc.run(curPotion); 
+                        return;
                     }
                 }
             }
@@ -193,15 +199,6 @@ void SecondLoc::run(){
             }
             else {player->goDown(0);}
         }
-
-        window->clear();
-        window->draw(*background);
-        drawList();
-        player->draw();
-        window->draw(upground); 
-        drawPotion();
-        window->draw(key);
-        if(noticeIsRun && clockForNotice.getElapsedTime().asSeconds() < 2.5) {window->draw(notice);}
-        window->display();
+        drawAll(clockForNotice.getElapsedTime().asSeconds());   
     }
 }

@@ -48,9 +48,6 @@ window(window), background(background), player(player), book(book), save(save){
     rightBord = Borders(rightLine);
 
     cow = make_unique<Cow>(window, background, book);
-    loc = make_unique<SecondLoc>(save, window, background, player, book);
-    loc->setCurPotion(8);
-    loc->setPageInBook(0);
     setting = Setting(save, window, texture);
 
     sound.setVolume(80);
@@ -78,23 +75,26 @@ void FirstLoc::setBookInLoc(bool flag) {
 
 void FirstLoc::setPageInBook(int num) {book->setPage(num);}
 
-void FirstLoc::runFirstLoc(){
-    music.play();
-    background->setTexture(&texture);
-    upground.setTexture(&upTexture);
-    key.setTexture(&keyTexture);
+void FirstLoc::drawAll(){
     window->clear();
-
     window->draw(*background);
     player->draw();
     window->draw(upground);
     drawBook();
     window->draw(key);
     window->display();
+}
+
+void FirstLoc::run(){
+    music.play();
+    background->setTexture(&texture);
+    upground.setTexture(&upTexture);
+    key.setTexture(&keyTexture);
+    
+    drawAll();
 
     Clock clock;
     while(window->isOpen()){
-        book->setLocTexture(1);
         Event ev;
         while(window->pollEvent(ev)){
             if(ev.type == Event::KeyReleased){
@@ -109,10 +109,20 @@ void FirstLoc::runFirstLoc(){
                         break;
                     }
                 }
-                if(ev.key.code == Keyboard::F && !bookInLoc) {book->run(); book->setLocTexture(1);}
+                if(ev.key.code == Keyboard::F && !bookInLoc){
+                    drawAll();
+                    book->run();
+                }
                 if(ev.key.code == Keyboard::T){
                     if (player->getX() >= 469 && player->getX() <= 596 && player->getY() >= 141 && player->getY() <= 151){
-                        if(cow->run()) {music.pause(); loc->setValue(soundIsPlay); book->setLocTexture(2); loc->run(); return;}
+                        if(cow->run(!bookInLoc)){
+                            SecondLoc loc = SecondLoc(save, window, background, player, book, !bookInLoc);
+                            loc.setCurPotion(8);
+                            music.pause();
+                            loc.setValue(soundIsPlay); 
+                            loc.run(); 
+                            return;
+                        }
                         background->setTexture(&texture);
                     }
                     if(bookInLoc && player->getY() >= 250 && player->getY() <= 350 && player->getX() >= 620){
@@ -166,12 +176,6 @@ void FirstLoc::runFirstLoc(){
         }
         
 
-        window->clear();
-        window->draw(*background);
-        player->draw();
-        window->draw(upground);
-        drawBook();
-        window->draw(key);
-        window->display();
+        drawAll();
     }
 }

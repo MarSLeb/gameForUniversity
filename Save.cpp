@@ -36,38 +36,36 @@ void Save::updateSaving(){
 void Save::checkSave(int num){
     string save = saveing[num];
     book->setPage(save[1] - '0');
-    unique_ptr<FirstLoc> loc = make_unique<FirstLoc>(num, window, background, make_shared<Player>(window, 100, 200), book);
-    unique_ptr<SecondLoc> loc2 = make_unique<SecondLoc>(num, window, background, make_shared<Player>(window, 100, 200), book);
-    unique_ptr<Street> loc3 = make_unique<Street>(num, window, book, make_shared<Player>(window, 100, 200));
-    unique_ptr<Home> loc4 = make_unique<Home>(num, window, make_shared<Player>(window, 100, 200), book);
-    switch (save[0]){
-        case '0':
-            anim->run();
-            loc->runFirstLoc();
-            return;
-            break;
-        case '1':
-            loc->setAnswer(save.substr(2, 4));
-            loc->setBookInLoc(save[6] - '0');
-            loc->runFirstLoc();
-            return;
-            break;
-        case '2':
-            loc2->setCurPotion(save[4] - '0');
-            loc2->setPageInBook(save[1] -'0');
-            loc2->run();
-            break;
-        case 's':
-            loc3->setPageInBook(save[1] -'0');
-            loc3->run(4);
-            return;
-            break;
-        case 'h':
-            loc4->run();
-            return;
-            break;
-        default:
-            break;
+
+    if(save[0] == '0') {
+        anim->run();
+        FirstLoc loc = FirstLoc(num, window, background, make_shared<Player>(window, 100, 200), book);
+        loc.run();
+        return;
+    }
+    else if(save[0] == '1'){
+        FirstLoc loc = FirstLoc(num, window, background, make_shared<Player>(window, 100, 200), book);
+        loc.setAnswer(save.substr(2, 4));
+        loc.setBookInLoc(save[6] - '0');
+        loc.run();
+        return;
+    }
+    else if(save[0] == '2'){
+        SecondLoc loc = SecondLoc(num, window, background, make_shared<Player>(window, 100, 200), book,
+                                  ((save[5] - '0') == 1), (save[3] - '0'));
+        loc.setCurPotion(save[4] - '0');
+        loc.run();
+        return;
+    }
+    else if(save[0] == 's'){
+        Street loc = Street(num, window, book, make_shared<Player>(window, 100, 200), ((save[2] - '0') == 1));
+        loc.run(4);
+        return;
+    }
+    else{
+        Home loc = Home(num, window, make_shared<Player>(window, 100, 200), book, ((save[2] - '0') == 1));
+        loc.run();
+        return;
     }
 }
 

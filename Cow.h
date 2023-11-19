@@ -45,5 +45,5 @@ class Cow{
         void setAnswer(string newAnswer);
         string getAnswer();
         Cow(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Book> book);
-        bool run();
+        bool run(bool havingBook);
 };

@@ -37,6 +37,7 @@ class Street{
 
         int save;
         bool soundIsPlay = true;
+        bool havingBook;
 
         Borders upBord;
         Borders downBord;
@@ -46,10 +47,12 @@ class Street{
         void drawUp();
         bool drawRepl();
         string createSaveString();
+        void drawAll();
     public:
         void setValue(bool flag);
         void setPageInBook(int num);
-        Street(int save, shared_ptr<RenderWindow> window, shared_ptr<Book> book, shared_ptr<Player> player);
+        Street(int save, shared_ptr<RenderWindow> window, shared_ptr<Book> book, shared_ptr<Player> player,
+               bool havingBook);
         void run(int num);
 
 };
