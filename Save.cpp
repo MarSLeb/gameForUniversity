@@ -10,8 +10,8 @@ window(window), background(background){
     String name_menu[]{L"сохранение 1",L"сохранение 2",L"сохранение 3",L"сохранение 4", L"назад"};
     ifstream file("save.txt");
     for(int i = 0; i < 4; i++) {
-        getline(file, saveing[i]); 
-        if(saveing[i][0] == '0') {name_menu[i] = L"пусто";}
+        if(saveing[i].empty()) {saveing[i] =  "0";}
+        if(saveing[i] == "0") {name_menu[i] = L"пусто";}
     }
     menu = make_unique<GameMenu>(window, 100, 50, 5, name_menu, 40, 100);
     menu->setColor(Color::White, Color::Blue, Color::Black);
@@ -28,6 +28,7 @@ void Save::updateSaving(){
     ifstream file("save.txt");
     for(int i = 0; i < 4; i++) {
         getline(file, saveing[i]); 
+        if(saveing[i].empty()) {saveing[i] =  "0";}
         if(saveing[i][0] == '0') {name_menu[i] = L"пусто";}
         menu->setText(i, name_menu[i], menu->getX(), menu->getY(i));
     } 
