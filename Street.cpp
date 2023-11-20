@@ -84,6 +84,7 @@ bool Street::drawRepl(){
     else if(x >= 580 && y >= 270 && y <= 400){
         Home home = Home(save, window, player, book, soundIsPlay, havingBook);
         sound.pause();
+        music.pause();
         home.run();
         return false;
     }
