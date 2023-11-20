@@ -96,8 +96,34 @@ void SecondLoc::drawAll(float time){
         window->draw(upground); 
         drawPotion();
         window->draw(key);
+        if(hasNote && !havingBook) { window->draw(listKey); }
         if(noticeIsRun && time < 2.5) {window->draw(notice);}
         window->display();
+}
+
+void SecondLoc::addNote(){
+    if(!havingBook && hasNote){
+        listKeyTexture.loadFromFile("foto/potion/listKey.png");
+        listKey.setTexture(&listKeyTexture);
+        noteTexture.loadFromFile("foto/potion/listLikeBook.png");
+        note.setTexture(&noteTexture);
+    }
+}
+
+void SecondLoc::drawNote(){
+    window->draw(listKey);
+    window->draw(note);
+    window->display();
+
+    while (window->isOpen()){
+        Event ev;
+        while(window->pollEvent(ev)){
+            if(ev.type == Event::KeyReleased && ev.key.code == Keyboard::F){
+                return;
+            }
+        }
+    }
+   
 }
 
 void SecondLoc::run(){
@@ -105,6 +131,7 @@ void SecondLoc::run(){
     upground.setTexture(&upTexture);
     key.setTexture(&keyTexture);
     player->setPosition(535, 405);
+    addNote();
 
     if(soundIsPlay) {music.play();}
     else {sound.setVolume(0);}
@@ -132,14 +159,21 @@ void SecondLoc::run(){
                         break;
                     }
                 }
-                if(ev.key.code == Keyboard::F && havingBook){
+                if(ev.key.code == Keyboard::F){
                     drawAll(clockForNotice.getElapsedTime().asSeconds());
-                    book->run();
+                    if(havingBook){
+                        book->run();
+                    }
+                    else if(hasNote){
+                        drawNote();
+                    }
+                    
                 }
                 if(ev.key.code == Keyboard::T){
                     if(!noticeIsRun && player->getX() >= 800 && player->getX() <= 960 && player->getY() >= 240){
                         hasNote = true;
                         book->setPage(1); 
+                        addNote();
                         noticeIsRun = true; 
                         if(soundIsPlay) {notionSound.play();}
                     }

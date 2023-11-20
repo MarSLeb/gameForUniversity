@@ -26,6 +26,10 @@ class SecondLoc{
         RectangleShape key = RectangleShape(Vector2f(960, 540));
         Texture listTexture;
         RectangleShape list = RectangleShape(Vector2f(960, 540));
+        Texture listKeyTexture;
+        RectangleShape listKey = RectangleShape(Vector2f(960, 540));
+        Texture noteTexture;
+        RectangleShape note = RectangleShape(Vector2f(960, 540));
 
         array<Texture, 3> potionTexture;
         array<Sprite, 7> potion;
@@ -62,6 +66,8 @@ class SecondLoc{
         string createSaveString();
         void died();
         void drawAll(float time);
+        void addNote();
+        void drawNote();
     public:
         void setValue(bool flag);
         SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player, 
