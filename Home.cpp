@@ -9,11 +9,10 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
     texture.loadFromFile("foto/home.png");
     havingBook == true ? keyTexture.loadFromFile("foto/key.png") :
                          keyTexture.loadFromFile("foto/keyNoBook.png");
-    //upTexture.loadFromFile("foto/homeUp.png");
+
     ground.setTexture(texture);
     ground.setTextureRect(IntRect(0, 0, 1920, 540));
     ground.setPosition(0, 0);
-    //upground.setTexture(&upTexture);
     key.setTexture(&keyTexture);
 
     buffer.loadFromFile("muziek/step.ogg");
@@ -26,15 +25,30 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
     setting = Setting(save, window, texture);
 
     vector<lines> upLine;
+    upLine.push_back(lines(310, 335, 0, 290));
+    upLine.push_back(lines(335, 430, 0, 190));
+    upLine.push_back(lines(430, 750, 0, 290));
+    upLine.push_back(lines(750, 1000, 0, 310));
+    upLine.push_back(lines(1000, 1290, 0, 290));
+    upLine.push_back(lines(1290, 1540, 0, 310));
+    upLine.push_back(lines(1540, 1920, 0, 290));
     upBord = Borders(upLine);
 
     vector<lines> downLines;
+    downLines.push_back(lines(0, 1920, 385, 540));
     downBord = Borders(downLines);
 
     vector<lines> leftLines;
+    leftLines.push_back(lines(030, 310, 290, 385));
+    leftLines.push_back(lines(325, 335, 190, 290));
+    leftLines.push_back(lines(990, 1000, 0, 310));
+    leftLines.push_back(lines(1530, 1540, 0, 310));
     leftBord = Borders(leftLines);
 
     vector<lines> rightLines;
+    rightLines.push_back(lines(430, 440, 190, 290));
+    rightLines.push_back(lines(750, 760, 0, 310));
+    rightLines.push_back(lines(1290, 1300, 0, 310));
     rightBord = Borders(rightLines);
 }
 
@@ -60,7 +74,6 @@ void Home::drawAll(){
     window->clear();
     window->draw(ground);
     player->draw();
-    //window->draw(upground);
     window->draw(key);
     window->display();
 }
@@ -68,6 +81,8 @@ void Home::drawAll(){
 void Home::run(){
     if(soundIsPlay) {music.play();}
     else {sound.setVolume(0);}
+
+    player->setPosition(320, 390);
 
     drawAll();
 
@@ -100,7 +115,7 @@ void Home::run(){
 	    time = time / 800;
 
         if(Keyboard::isKeyPressed(Keyboard::S)){
-            if(!rightBord.getContact(player->getX(), player->getY())){
+            if(!rightBord.getContact(player->getX() + xForTexture, player->getY())){
                 goRight(time);
                 if (sound.getStatus() != sf::SoundSource::Status::Playing){
                     sound.play();
@@ -109,7 +124,7 @@ void Home::run(){
             else {player->goRight(0);}
         }
         else if(Keyboard::isKeyPressed(Keyboard::A)){
-            if(!leftBord.getContact(player->getX(), player->getY())){
+            if(!leftBord.getContact(player->getX() + xForTexture, player->getY())){
                 goLeft(time);
                 if (sound.getStatus() != sf::SoundSource::Status::Playing){
                     sound.play();
@@ -118,7 +133,7 @@ void Home::run(){
             else {player->goLeft(0);}
         } 
         else if(Keyboard::isKeyPressed(Keyboard::W)){
-            if(!upBord.getContact(player->getX(), player->getY())){
+            if(!upBord.getContact(player->getX() + xForTexture, player->getY())){
                 player->goUp(time);
                 if (sound.getStatus() != sf::SoundSource::Status::Playing){
                     sound.play();
@@ -127,7 +142,7 @@ void Home::run(){
             else {player->goUp(0);}
         }
         else if(Keyboard::isKeyPressed(Keyboard::R)){
-            if(!downBord.getContact(player->getX(), player->getY())){
+            if(!downBord.getContact(player->getX() + xForTexture, player->getY())){
                 player->goDown(time);
                 if (sound.getStatus() != sf::SoundSource::Status::Playing){
                     sound.play();
