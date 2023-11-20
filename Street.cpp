@@ -2,7 +2,7 @@
 #include <iostream>
 
 Street::Street(int save, shared_ptr<RenderWindow> window, shared_ptr<Book> book, shared_ptr<Player> player, bool havingBook):
-window(window), book(book), player(player), havingBook(havingBook){
+save(save), window(window), book(book), player(player), havingBook(havingBook){
     texture.loadFromFile("foto/street.png");
     upSprite.loadFromFile("foto/street/sprite.png");
     upHalf.loadFromFile("foto/street/half.png");

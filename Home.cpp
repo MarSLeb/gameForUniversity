@@ -5,7 +5,7 @@ string Home::createSaveString() {return "h" + to_string(book->getPage()) + to_st
 
 Home::Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
 bool havingBook, bool soundIsPlay):
-    save(save), window(window), player(player), book(book), soundIsPlay(soundIsPlay){
+save(save), window(window), player(player), book(book), havingBook(havingBook), soundIsPlay(soundIsPlay){
     texture.loadFromFile("foto/home.png");
     havingBook == true ? keyTexture.loadFromFile("foto/key.png") :
                          keyTexture.loadFromFile("foto/keyNoBook.png");
@@ -40,7 +40,7 @@ bool havingBook, bool soundIsPlay):
 
 void Home::goRight(float time){
     if(xForTexture < 960 && player->getX() >= 450 && player->getX() <= 480){
-        xForTexture += 0.2 * time;
+        xForTexture += 0.15 * time;
         ground.setTextureRect(IntRect(int(xForTexture), 0, 960, 540));
         player->goRightSprite(time);
     }
@@ -49,7 +49,7 @@ void Home::goRight(float time){
 
 void Home::goLeft(float time){
     if(xForTexture > 0 && player->getX() >= 450 && player->getX() <= 480){
-        xForTexture -= 0.2 * time;
+        xForTexture -= 0.15 * time;
         ground.setTextureRect(IntRect(int(xForTexture), 0, 960, 540));
         player->goLeftSprite(time);
     }

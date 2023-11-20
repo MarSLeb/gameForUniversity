@@ -6,9 +6,9 @@ SecondLoc::~SecondLoc() {}
 
 SecondLoc::SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player,
 shared_ptr<Book> book, bool havingBook, int listBool):
-window(window), background(background), player(player), book(book), save(save), havingBook(havingBook){
+save(save), window(window), background(background), player(player), book(book), havingBook(havingBook){
     hasNote = listBool == 1;
-
+    
     for(int i = 0; i < 3; i++) {potionTexture[i].loadFromFile("foto/potion/" + to_string(i + 1) + ".png");}
     potion[0].setTexture(potionTexture[0]);
     potion[1].setTexture(potionTexture[2]);
