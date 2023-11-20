@@ -17,14 +17,14 @@ GameMenu::GameMenu(std::shared_ptr<RenderWindow> window, float menux, float menu
 }
 
 void GameMenu::setText(int i, String str, float xpos, float ypos){
-    Text* text = &mainMenu[i];
-    text->setFont(font);
-    text->setFillColor(textColor);
-    text->setString(str);  
-    text->setCharacterSize(sizeFont);
-    text->setPosition(xpos, ypos);
-    text->setOutlineThickness(3);
-    text->setOutlineColor(border);
+    Text& text = mainMenu[i];
+    text.setFont(font);
+    text.setFillColor(textColor);
+    text.setString(str);  
+    text.setCharacterSize(sizeFont);
+    text.setPosition(xpos, ypos);
+    text.setOutlineThickness(3);
+    text.setOutlineColor(border);
 }
 
 int GameMenu::getX() {return x;}
