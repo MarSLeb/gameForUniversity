@@ -1,6 +1,7 @@
 #include "FirstLoc.h"
 #include <iostream>
 
+FirstLoc::~FirstLoc() {}
 
 void FirstLoc::setAnswer(string answer){
     cow->setAnswer(answer);

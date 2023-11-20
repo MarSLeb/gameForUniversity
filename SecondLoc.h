@@ -75,4 +75,5 @@ class SecondLoc{
         void setCurPotion(int num);
         void drawPotion();
         void run();
+        ~SecondLoc();
 };

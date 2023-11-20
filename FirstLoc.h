@@ -52,6 +52,7 @@ class FirstLoc{
         void setAnswer(string answer);
         FirstLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player, shared_ptr<Book> book);
         void run();
+        ~FirstLoc();
 };
 
 

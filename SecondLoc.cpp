@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+SecondLoc::~SecondLoc() {}
+
 SecondLoc::SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player,
 shared_ptr<Book> book, bool havingBook, int listBool):
 window(window), background(background), player(player), book(book), save(save), havingBook(havingBook){
@@ -148,7 +150,8 @@ void SecondLoc::run(){
                 if(ev.key.code == Keyboard::Escape){
                     switch (setting.run(createSaveString())){
                     case menuItem::save:
-                        return; break;
+                        return; 
+                        break;
                     case menuItem::sound:
                         sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
                         music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
