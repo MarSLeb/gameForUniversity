@@ -14,13 +14,20 @@ Cow::Cow(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background,
     // цифры
     for(int i = 0, x = 130; i < 4; i++, x += 195){
         for(int j = 0; j < 10; j++){
-            if(j == 1) {setText(number[i][j], " 1", x, 110);}
-            else {setText(number[i][j], to_string(j), x, 110);}
+            if(j == 1){
+                setText(number[i][j], " 1", x, 110, Color::Black);
+                setText(lastNumber[i][j], " 1", x, 110, Color(50, 50, 50));
+            }
+            else{
+                setText(number[i][j], to_string(j), x, 110, Color::Black);
+                setText(lastNumber[i][j], to_string(j), x, 110, Color(50, 50, 50));
+            }
         }
-        setText(number[i][10], "_", x, 110);
+        setText(number[i][10], " ", x, 110, Color::Black);
+        setText(lastNumber[i][10], " ", x, 110, Color(50, 50, 50));
         select[i] = 10;
+        lastSelect[i] = 10;
     }
-    
 
     //для подчёркивания выбранной секции
     sel.setString("_");
@@ -52,6 +59,9 @@ Cow::Cow(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background,
 }
 
 void Cow::drawNum(){
+    for(int i = 0; i < 4; i++){
+        window->draw(lastNumber[i][lastSelect[i]]);
+    }
     for(int i = 0; i < 4; i++){
         window->draw(number[i][select[i]]);
     }
@@ -86,7 +96,7 @@ void Cow::moveLeft(){
 
 bool Cow::isSpace(){
     for(int i = 0; i < 4; i++){
-        if(number[i][select[i]].getString() == "_") {return true;}
+        if(select[i] == 10) {return true;}
     }
     return false;
 }
@@ -95,8 +105,10 @@ pair<int, int> Cow::check(){
     string playerAnswer = "";
     for(int i = 0; i < 4; i++){
         playerAnswer += number[i][select[i]].getString() == " 1" ? "1" : number[i][select[i]].getString();
-        if(number[i][select[i]].getString() == "_") {return make_pair(-1, -1);}
+        if(select[i] == 10) {return make_pair(-1, -1);}
     }
+    for(int i = 0; i < 4; i++) {lastSelect[i]  = select[i];}
+
     int cow = 0;
     int bull = 0;
     string ostAnsw = "";
@@ -185,12 +197,12 @@ bool Cow::run(bool havingBook){
     return false;
 }
 
-void Cow::setText(Text& text, String str, float xpos, float ypos){
+void Cow::setText(Text& text, String str, float xpos, float ypos, Color color){
     text.setFont(font);
-    text.setFillColor(Color::Black);
+    text.setFillColor(color);
     text.setString(str);    
     text.setCharacterSize(130);
     text.setPosition(xpos, ypos);
     text.setOutlineThickness(3);
-    text.setOutlineColor(Color::Black);
+    text.setOutlineColor(color);
 }

@@ -21,7 +21,9 @@ class Cow{
         Font font;
 
         array<array<Text, 11>, 4> number;
+        array<array<Text, 11>, 4> lastNumber;
         array<int, 4> select;
+        array<int, 4> lastSelect;
         Text sel;
         int selX;
         int cur;
@@ -31,7 +33,7 @@ class Cow{
 
         string answer = "";
 
-        void setText(Text& text, String str, float xpos, float ypos);
+        void setText(Text& text, String str, float xpos, float ypos, Color color);
         void drawNum();
         void moveRight();
         void moveLeft();
