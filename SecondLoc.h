@@ -56,7 +56,7 @@ class SecondLoc{
         SoundBuffer buffer;
         SoundBuffer bufferForNotion;
         int save;
-        bool listIsEmpty = false;
+        bool hasNote = false;
 
         void drawList();
         string createSaveString();

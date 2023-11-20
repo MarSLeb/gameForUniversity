@@ -6,6 +6,12 @@
 using namespace std;
 using namespace sf;
 
+enum class Pickup {
+    Book,
+    Note,
+    None
+};
+
 class Potion{
     private:
         shared_ptr<RenderWindow> window;
@@ -16,12 +22,19 @@ class Potion{
         RectangleShape upground = RectangleShape(Vector2f(960, 540));
         Texture keyTexture;
         RectangleShape key = RectangleShape(Vector2f(960, 540));
+        Texture listKeyTexture;
+        RectangleShape listKey = RectangleShape(Vector2f(960, 540));
+        Texture listTexture;
+        RectangleShape list = RectangleShape(Vector2f(960, 540));
         shared_ptr<Book> book;
-
+    
+        Pickup pickup;
+        void drawList();
+        void drawKey();
         void right();
         void left();
     public:
         Potion();
-        Potion(shared_ptr<RenderWindow> window, shared_ptr<Book> book);
-        int run();
+        Potion(shared_ptr<RenderWindow> window, shared_ptr<Book> book, Pickup pickup);
+        int run(bool havingList);
 };

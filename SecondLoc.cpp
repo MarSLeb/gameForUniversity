@@ -5,7 +5,7 @@
 SecondLoc::SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player,
 shared_ptr<Book> book, bool havingBook, int listBool):
 window(window), background(background), player(player), book(book), save(save), havingBook(havingBook){
-    listBool == 1 ? listIsEmpty = true : listIsEmpty = false;
+    hasNote = listBool == 1;
 
     for(int i = 0; i < 3; i++) {potionTexture[i].loadFromFile("foto/potion/" + to_string(i + 1) + ".png");}
     potion[0].setTexture(potionTexture[0]);
@@ -48,7 +48,7 @@ window(window), background(background), player(player), book(book), save(save), 
     rightLines.push_back(lines(555, 560, 185, 245));
     rightBord = Borders(rightLines);
 
-    potionPazzle = Potion(window, book);
+    potionPazzle = Potion(window, book, havingBook ? Pickup::Book : Pickup::None);
     setting = Setting(save, window, texture);
     deed = make_unique<Deed>(window);
 
@@ -73,11 +73,11 @@ void SecondLoc::drawPotion(){
 
 string SecondLoc::createSaveString(){
     return ("2" + to_string(book->getPage()) + " " +
-            to_string(listIsEmpty == true) + to_string(curPotion) + to_string(havingBook));
+            to_string(hasNote == true) + to_string(curPotion) + to_string(havingBook));
 }
 
 void SecondLoc::drawList(){
-    if(listIsEmpty) {return;}
+    if(hasNote) {return;}
     window->draw(list);
 }
 
@@ -138,13 +138,13 @@ void SecondLoc::run(){
                 }
                 if(ev.key.code == Keyboard::T){
                     if(!noticeIsRun && player->getX() >= 800 && player->getX() <= 960 && player->getY() >= 240){
-                        listIsEmpty = true;
+                        hasNote = true;
                         book->setPage(1); 
                         noticeIsRun = true; 
                         if(soundIsPlay) {notionSound.play();}
                     }
                     if(player->getY() >= 250 && player->getX() <= 70 && !finishPotioin){
-                        curPotion = potionPazzle.run();
+                        curPotion = potionPazzle.run(hasNote);
                         if(curPotion != 8) {finishPotioin = true;}
                         if(curPotion == 6 || curPotion == 3 || curPotion == 2) {music.pause(); died(); return;}
                     }
