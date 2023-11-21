@@ -1,7 +1,7 @@
 #include "Home.h"
 #include <iostream>
 
-string Home::createSaveString() {return "h" + to_string(book->getPageTwo()) + to_string(havingBook);}
+string Home::createSaveString() {return "h" + to_string(book->getPageTwo()) + to_string(havingBook) + to_string((int)hasNote);}
 
 Home::Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
 bool havingBook, bool soundIsPlay):
@@ -51,6 +51,8 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
     rightLines.push_back(lines(1290, 1300, 0, 310));
     rightBord = Borders(rightLines);
 }
+
+void Home::setCountHasNote(NoteFourth note) { hasNote = note; }
 
 void Home::goRight(float time){
     if(xForTexture < 960 && player->getX() >= 450 && player->getX() <= 480){

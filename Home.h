@@ -44,7 +44,10 @@ class Home{
         string createSaveString();
         void drawAll();
 
+        bool runFirstBoard();
+        bool runSecondBoard();
     public:
+        void setCountHasNote(NoteFourth note);
         Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
             bool havingBook,  bool soundIsPlay = true);
         void run();

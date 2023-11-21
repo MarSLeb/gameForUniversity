@@ -66,6 +66,7 @@ void Save::checkSave(int num){
     }
     else{
         Home loc = Home(num, window, make_shared<Player>(window, 100, 200), book, ((save[2] - '0') == 1));
+        loc.setCountHasNote((NoteFourth)(save[3] - '0'));
         loc.run();
         return;
     }
