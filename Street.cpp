@@ -14,7 +14,7 @@ save(save), window(window), book(book), player(player), havingBook(havingBook){
     half.setTexture(&upHalf);
     key.setTexture(&keyTexture);
 
-    setting = Setting(save, window, texture);
+    setting = Setting(save, window);
     deed = make_unique<Deed>(window);
 
     buffer.loadFromFile("muziek/step.ogg");
@@ -155,16 +155,17 @@ void Street::run(int num){
         while (window->pollEvent(event)){
             if(event.type == Event::KeyReleased){
                 if(event.key.code == Keyboard::Escape){
+                    drawAll();
                     switch (setting.run(createSaveString())){
-                    case menuItem::save:
-                        return; break;
-                    case menuItem::sound:
-                        sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
-                        music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
-                        soundIsPlay == true ? soundIsPlay = false : soundIsPlay = true;
-                        break;
-                    default:
-                        break;
+                        case menuItem::save:
+                            return; break;
+                        case menuItem::sound:
+                            sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
+                            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
+                            soundIsPlay == true ? soundIsPlay = false : soundIsPlay = true;
+                            break;
+                        default:
+                            break;
                     }
                 }
                 if(event.key.code == Keyboard::F && havingBook){

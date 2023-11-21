@@ -22,7 +22,7 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
     music.setVolume(10);
     music.setLoop(true);
 
-    setting = Setting(save, window, texture);
+    setting = Setting(save, window);
 
     vector<lines> upLine;
     upLine.push_back(lines(310, 335, 0, 290));
@@ -92,16 +92,17 @@ void Home::run(){
         while (window->pollEvent(ev)){
             if(ev.type == Event::KeyReleased){
                 if(ev.key.code == Keyboard::Escape){
+                    drawAll();
                     switch (setting.run(createSaveString())){
-                    case menuItem::save:
-                        return; break;
-                    case menuItem::sound:
-                        sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
-                        music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
-                        soundIsPlay? soundIsPlay = false : soundIsPlay = true;
-                        break;
-                    default:
-                        break;
+                        case menuItem::save:
+                            return; break;
+                        case menuItem::sound:
+                            sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
+                            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
+                            soundIsPlay? soundIsPlay = false : soundIsPlay = true;
+                            break;
+                       default:
+                            break;
                     }
                 }
                 if(ev.key.code == Keyboard::F){

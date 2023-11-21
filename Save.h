@@ -18,7 +18,7 @@ using namespace std;
 class Save{
     private:
         shared_ptr<RenderWindow> window;
-        shared_ptr<RectangleShape> background;
+        RectangleShape background = RectangleShape(Vector2f(960, 540));;
         Texture texture;
         array<string, 4> saveing;
         unique_ptr<GameMenu> menu;
@@ -35,6 +35,6 @@ class Save{
         void updateSaving();
     public:
         void setCurrent(int num);
-        Save(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background);
+        Save(shared_ptr<RenderWindow> window);
         void run();
 };

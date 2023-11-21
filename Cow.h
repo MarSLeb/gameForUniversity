@@ -13,7 +13,7 @@ using namespace sf;
 class Cow{
     private:
         shared_ptr<RenderWindow> window;
-        shared_ptr<RectangleShape> background;
+        RectangleShape background = RectangleShape(Vector2f(960, 540));
         Texture texture;
         Texture keyTexture;
         RectangleShape key = RectangleShape(Vector2f(960, 540));
@@ -46,6 +46,6 @@ class Cow{
     public:
         void setAnswer(string newAnswer);
         string getAnswer();
-        Cow(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Book> book);
+        Cow(shared_ptr<RenderWindow> window, shared_ptr<Book> book);
         bool run(bool havingBook);
 };

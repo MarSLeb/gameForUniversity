@@ -3,8 +3,8 @@
 
 Setting::Setting() {}
 
-Setting::Setting(int save, shared_ptr<RenderWindow> window, Texture background_texture):
-window(window), save(save), background_texture(background_texture){
+Setting::Setting(int save, shared_ptr<RenderWindow> window):
+window(window), save(save){
     String name_menu[]{L"сохранить и выйдти",L"звук on/off", L"вернуться в игру"};
     settingMenu = make_unique<GameMenu>(window, 500, 150, 3, name_menu, 40, 100);
     settingMenu->setColor(Color::White, Color::Blue, Color::Black);
@@ -33,13 +33,8 @@ menuItem Setting::run(string textSave){
     settingMenu->setCureent(0);
     for(int i = 0; i < 3; i++) {settingMenu->moveDown();}
     font.loadFromFile("font/menu.ttf");
-    //ground.setTexture(&textureSetting);
-    background.setTexture(&background_texture);
-    window->clear();
-    window->draw(background);
-    //window->draw(ground);
-    settingMenu->draw();   
 
+    settingMenu->draw();   
     window->display();
     while(window->isOpen()){
         Event event;
@@ -63,9 +58,6 @@ menuItem Setting::run(string textSave){
                 }
             }
         }
-        window->clear();
-        window->draw(background);
-        //window->draw(ground);
         settingMenu->draw();
         window->display();
     }

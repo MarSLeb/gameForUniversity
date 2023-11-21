@@ -17,7 +17,7 @@ using namespace sf;
 class FirstLoc{
     private:
         shared_ptr<RenderWindow> window;
-        shared_ptr<RectangleShape> background;
+        RectangleShape background = RectangleShape(Vector2f(960, 540));
         Texture texture;
         Texture upTexture;
         RectangleShape upground = RectangleShape(Vector2f(960, 540));
@@ -50,7 +50,7 @@ class FirstLoc{
         void setBookInLoc(bool flag);
         void setPageInBook(int num);
         void setAnswer(string answer);
-        FirstLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player, shared_ptr<Book> book);
+        FirstLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book);
         void run();
         ~FirstLoc();
 };

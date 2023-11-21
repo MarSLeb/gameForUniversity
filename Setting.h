@@ -16,9 +16,6 @@ using namespace sf;
 class Setting{
     private:
         shared_ptr<RenderWindow> window;
-
-        Texture background_texture;
-        RectangleShape background = RectangleShape(Vector2f(960, 540));
         Texture textureSetting;
         RectangleShape ground = RectangleShape(Vector2f(960, 540));
 
@@ -29,6 +26,6 @@ class Setting{
     public:
         void died();
         Setting();
-        Setting(int save, shared_ptr<RenderWindow> window, Texture background_texture);
+        Setting(int save, shared_ptr<RenderWindow> window);
         menuItem run(string textSave);
 };

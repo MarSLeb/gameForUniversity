@@ -2,8 +2,8 @@
 #include <fstream>
 #include <iostream>
 
-Save::Save(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background):
-window(window), background(background){
+Save::Save(shared_ptr<RenderWindow> window):
+window(window){
     book = make_shared<Book>(window);
     anim = make_unique<Animation>(window, Anim::start);
 
@@ -17,6 +17,7 @@ window(window), background(background){
     menu->setColor(Color::White, Color::Blue, Color::Black);
 
     texture.loadFromFile("foto/wtf.png");
+    background.setTexture(&texture);
 
     String nameDelete[]{L"загрузить", L"удалить"};
     deleteOrLoading = make_unique<GameMenu>(window, 500, 200, 2, nameDelete, 40, 100);
@@ -40,19 +41,19 @@ void Save::checkSave(int num){
 
     if(save[0] == '0') {
         anim->run();
-        FirstLoc loc = FirstLoc(num, window, background, make_shared<Player>(window, 100, 200), book);
+        FirstLoc loc = FirstLoc(num, window, make_shared<Player>(window, 100, 200), book);
         loc.run();
         return;
     }
     else if(save[0] == '1'){
-        FirstLoc loc = FirstLoc(num, window, background, make_shared<Player>(window, 100, 200), book);
+        FirstLoc loc = FirstLoc(num, window, make_shared<Player>(window, 100, 200), book);
         loc.setAnswer(save.substr(2, 4));
         loc.setBookInLoc(save[6] - '0');
         loc.run();
         return;
     }
     else if(save[0] == '2'){
-        SecondLoc loc = SecondLoc(num, window, background, make_shared<Player>(window, 100, 200), book,
+        SecondLoc loc = SecondLoc(num, window, make_shared<Player>(window, 100, 200), book,
                                   ((save[5] - '0') == 1), (save[3] - '0'));
         loc.setCurPotion(save[4] - '0');
         loc.run();
@@ -81,7 +82,7 @@ void Save::run(){
     menu->moveDown();
 
     window->clear();
-    window->draw(*background);
+    window->draw(background);
     menu->draw();
     window->display();
 
@@ -113,7 +114,7 @@ void Save::run(){
             }
         }
         window->clear();
-        window->draw(*background);
+        window->draw(background);
         menu->draw();
         window->display();
     }    
@@ -138,7 +139,7 @@ bool Save::drawDeleteOrLoading(int num){
     deleteOrLoading->moveDown();
     deleteOrLoading->moveUp();
     window->clear();
-    window->draw(*background);
+    window->draw(background);
     menu->draw();
     deleteOrLoading->draw();
     window->display();
@@ -165,7 +166,7 @@ bool Save::drawDeleteOrLoading(int num){
             }
         }
         window->clear();
-        window->draw(*background);
+        window->draw(background);
         menu->draw();
         deleteOrLoading->draw();
         window->display();

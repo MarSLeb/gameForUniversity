@@ -18,7 +18,7 @@ using namespace sf;
 class SecondLoc{
     private:
         shared_ptr<RenderWindow> window;
-        shared_ptr<RectangleShape> background;
+        RectangleShape background = RectangleShape(Vector2f(960, 540));
         Texture texture;
         Texture upTexture;
         RectangleShape upground = RectangleShape(Vector2f(960, 540));
@@ -70,7 +70,7 @@ class SecondLoc{
         void drawNote();
     public:
         void setValue(bool flag);
-        SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player, 
+        SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, 
             shared_ptr<Book> book, bool havingBook, int listBool = 0);
         void setCurPotion(int num);
         void drawPotion();

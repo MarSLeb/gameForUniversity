@@ -5,9 +5,8 @@ void Cow::setAnswer(string newAnswer) {answer = newAnswer;}
 
 string Cow::getAnswer() {return answer;}
 
-Cow::Cow(shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Book> book)
-: window(window), background(background), book(book)
-{
+Cow::Cow(shared_ptr<RenderWindow> window, shared_ptr<Book> book)
+: window(window), book(book){
     texture.loadFromFile("foto/cow/cowStart.png");
     keyTexture.loadFromFile("foto/cow/key.png");
     font.loadFromFile("font/number.TTF");
@@ -143,7 +142,7 @@ void Cow::drawAnswer(){
 }
 
 bool Cow::run(bool havingBook){
-    background->setTexture(&texture);
+    background.setTexture(&texture);
     if(!havingBook){
         keyTexture.loadFromFile("foto/keyNoBook.png");
         key.setTexture(&keyTexture);
@@ -151,7 +150,7 @@ bool Cow::run(bool havingBook){
     key.setTexture(&keyTexture);
     window->clear();
 
-    window->draw(*background);
+    window->draw(background);
     drawAnswer();
     drawNum();
     window->draw(key);
@@ -188,7 +187,7 @@ bool Cow::run(bool havingBook){
             }
         }
         window->clear();
-        window->draw(*background);
+        window->draw(background);
         drawAnswer();
         drawNum();
         window->draw(key);

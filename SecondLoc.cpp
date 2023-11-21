@@ -4,9 +4,9 @@
 
 SecondLoc::~SecondLoc() {}
 
-SecondLoc::SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<RectangleShape> background, shared_ptr<Player> player,
+SecondLoc::SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player,
 shared_ptr<Book> book, bool havingBook, int listBool):
-save(save), window(window), background(background), player(player), book(book), havingBook(havingBook){
+save(save), window(window), player(player), book(book), havingBook(havingBook){
     hasNote = listBool == 1;
     
     for(int i = 0; i < 3; i++) {potionTexture[i].loadFromFile("foto/potion/" + to_string(i + 1) + ".png");}
@@ -51,7 +51,7 @@ save(save), window(window), background(background), player(player), book(book), 
     rightBord = Borders(rightLines);
 
     potionPazzle = Potion(window, book, havingBook ? Pickup::Book : Pickup::None);
-    setting = Setting(save, window, texture);
+    setting = Setting(save, window);
     deed = make_unique<Deed>(window);
 
     buffer.loadFromFile("muziek/step.ogg");
@@ -92,7 +92,7 @@ void SecondLoc::setValue(bool flag) {soundIsPlay = flag;}
 
 void SecondLoc::drawAll(float time){
     window->clear();
-        window->draw(*background);
+        window->draw(background);
         drawList();
         player->draw();
         window->draw(upground); 
@@ -129,7 +129,7 @@ void SecondLoc::drawNote(){
 }
 
 void SecondLoc::run(){
-    background->setTexture(&texture);
+    background.setTexture(&texture);
     upground.setTexture(&upTexture);
     key.setTexture(&keyTexture);
     player->setPosition(535, 405);
@@ -149,17 +149,17 @@ void SecondLoc::run(){
             if(ev.type == Event::KeyReleased){
                 if(ev.key.code == Keyboard::Escape){
                     switch (setting.run(createSaveString())){
-                    case menuItem::save:
-                        return; 
-                        break;
-                    case menuItem::sound:
-                        sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
-                        music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
-                        notionSound.getVolume() == 0 ? notionSound.setVolume(80) : notionSound.setVolume(0);
-                        soundIsPlay? soundIsPlay = false : soundIsPlay = true;
-                        break;
-                    default:
-                        break;
+                        case menuItem::save:
+                            return; 
+                            break;
+                        case menuItem::sound:
+                            sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
+                            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
+                            notionSound.getVolume() == 0 ? notionSound.setVolume(80) : notionSound.setVolume(0);
+                            soundIsPlay? soundIsPlay = false : soundIsPlay = true;
+                            break;
+                        default:
+                            break;
                     }
                 }
                 if(ev.key.code == Keyboard::F){

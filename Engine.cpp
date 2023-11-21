@@ -16,22 +16,21 @@ void InitText(Text& mtext, float xpos, float ypos, String str, int size_font = 6
 }
 
 Engine::Engine(){
-//    window->setMouseCursorVisible(false);
-    save = make_unique<Save>(window, background);
+    save = make_unique<Save>(window);
     String name_menu[]{L"Старт",L"Выход"};
     menu = make_unique<GameMenu>(window, 475.f, 250.f, 2, name_menu, 70, 150);
     menu->setColor(Color::White, Color::Blue, Color::Black);
     menu->align(2);
 
     background_texture.loadFromFile("foto/wtf.png");
-    background->setTexture(&background_texture);
+    background.setTexture(&background_texture);
 }
 
 void Engine::run(){
     Font font;
     font.loadFromFile("font/menu.ttf");
     window->clear();
-    window->draw(*background);
+    window->draw(background);
     window->display();
 
     while(window->isOpen()){
@@ -48,7 +47,7 @@ void Engine::run(){
                         case 0:
                             save->setCurrent(0);
                             save->run();
-                            background->setTexture(&background_texture);
+                            background.setTexture(&background_texture);
                             break;
                         case 1:
                             window->close();
@@ -60,7 +59,7 @@ void Engine::run(){
             }
         }
         window->clear();
-        window->draw(*background);
+        window->draw(background);
         menu->draw();
         window->display();
     }
