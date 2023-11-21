@@ -74,7 +74,7 @@ void FirstLoc::setBookInLoc(bool flag) {
     }
 }
 
-void FirstLoc::setPageInBook(int num) {book->setPage(num);}
+void FirstLoc::setPageInBook(int num) {book->setPage((NoteSecond)num);}
 
 void FirstLoc::drawAll(){
     window->clear();

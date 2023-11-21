@@ -59,9 +59,9 @@ save(save), window(window), book(book), player(player), havingBook(havingBook){
     rightBord = Borders(rightLines);
 }
 
-string Street::createSaveString() {return ("s" + to_string(book->getPage()) + to_string(havingBook));}
+string Street::createSaveString() {return ("s" + to_string(book->getPageTwo()) + to_string(havingBook));}
 
-void Street::setPageInBook(int num) {book->setPage(num);}
+void Street::setPageInBook(int num) {book->setPage((NoteSecond)num);}
 
 void Street::drawUp(){
     int x = player->getX();

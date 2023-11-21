@@ -22,6 +22,7 @@ class Home{
 
         float xForTexture = 0.;
         bool havingBook;
+        NoteFourth hasNote = NoteFourth::none;
 
         shared_ptr<Player> player;
         shared_ptr<Book> book;
@@ -42,6 +43,7 @@ class Home{
         void goLeft(float time);
         string createSaveString();
         void drawAll();
+
     public:
         Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
             bool havingBook,  bool soundIsPlay = true);

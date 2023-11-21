@@ -37,7 +37,7 @@ void Save::updateSaving(){
 
 void Save::checkSave(int num){
     string save = saveing[num];
-    book->setPage(save[1] - '0');
+    book->setPage((NoteSecond)(save[1] - '0'));
 
     if(save[0] == '0') {
         anim->run();

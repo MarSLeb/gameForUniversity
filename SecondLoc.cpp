@@ -74,7 +74,7 @@ void SecondLoc::drawPotion(){
 }
 
 string SecondLoc::createSaveString(){
-    return ("2" + to_string(book->getPage()) + " " +
+    return ("2" + to_string(book->getPageTwo()) + " " +
             to_string(hasNote == true) + to_string(curPotion) + to_string(havingBook));
 }
 
@@ -175,7 +175,7 @@ void SecondLoc::run(){
                 if(ev.key.code == Keyboard::T){
                     if(!noticeIsRun && player->getX() >= 800 && player->getX() <= 960 && player->getY() >= 240){
                         hasNote = true;
-                        book->setPage(1); 
+                        book->setPage(NoteSecond::all); 
                         addNote();
                         noticeIsRun = true; 
                         if(soundIsPlay) {notionSound.play();}

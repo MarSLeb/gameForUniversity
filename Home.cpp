@@ -1,7 +1,7 @@
 #include "Home.h"
 #include <iostream>
 
-string Home::createSaveString() {return "h" + to_string(book->getPage()) + to_string(havingBook);}
+string Home::createSaveString() {return "h" + to_string(book->getPageTwo()) + to_string(havingBook);}
 
 Home::Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
 bool havingBook, bool soundIsPlay):

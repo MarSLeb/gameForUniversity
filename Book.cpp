@@ -27,12 +27,22 @@ void Book::lastPage(){
     background.setTexture(&pages[current]);
 }
 
-void Book::setPage(int num){
-    if(num == 1) {pages[1].loadFromFile("foto/pages/2.1.png"); page = 1;}   
-    else {pages[1].loadFromFile("foto/pages/2.png"); page = 0;}
+void Book::setPage(NoteSecond note){
+    if(note == NoteSecond::all) {pages[1].loadFromFile("foto/pages/2.1.png"); hasNoteForSecondLoc = NoteSecond::all;}   
+    else {pages[1].loadFromFile("foto/pages/2.png"); hasNoteForSecondLoc = NoteSecond::none;}
 }
 
-int Book::getPage() {return page;}
+void Book::setPage(NoteFourth note){
+    hasNoteForFourthLoc = note;
+    if(hasNoteForFourthLoc == NoteFourth::none) { pages[4].loadFromFile("foto/pages/5.png"); }
+    else if(hasNoteForFourthLoc == NoteFourth::first) { pages[4].loadFromFile("foto/pages/5.1.png"); }
+    else if(hasNoteForFourthLoc == NoteFourth::second) { pages[4].loadFromFile("foto/pages/5.2.png"); }
+    else { pages[4].loadFromFile("foto/pages/5.3.png"); }
+}
+
+int Book::getPageTwo() { return (int)hasNoteForSecondLoc; }
+
+int Book::getPageFive() { return (int)hasNoteForFourthLoc; }
 
 void Book::run(){
     current = 0;
