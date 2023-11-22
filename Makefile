@@ -1,6 +1,6 @@
-run: Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o Animation.o Home.o
+run: Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o Animation.o Home.o FirstBoard.o
 	g++ -c main.cpp 
-	g++ main.o Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o  Animation.o Home.o -o out -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ main.o Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o  Animation.o Home.o FirstBoard.o -o out -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 	./out
 
 Engine.o: Engine.cpp
@@ -47,6 +47,9 @@ Animation.o: Animation.cpp
 
 Home.o: Home.cpp
 	g++ -c Home.cpp
+
+FirstBoard.o: FirstBoard.cpp
+	g++ -c FirstBoard.cpp
 
 clean:
 	rm *.o

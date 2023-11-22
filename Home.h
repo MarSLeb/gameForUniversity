@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Setting.h"
 #include "Borders.h"
+#include "FirstBoard.h"
 
 using namespace std;
 using namespace sf;
@@ -27,6 +28,7 @@ class Home{
         shared_ptr<Player> player;
         shared_ptr<Book> book;
         Setting setting;
+        FirstBoard firstBoard;
 
         Borders upBord;
         Borders downBord;

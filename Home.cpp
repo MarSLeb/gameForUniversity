@@ -23,6 +23,7 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
     music.setLoop(true);
 
     setting = Setting(save, window);
+    firstBoard = FirstBoard(window);
 
     vector<lines> upLine;
     upLine.push_back(lines(310, 335, 0, 290));
@@ -111,6 +112,10 @@ void Home::run(){
                     drawAll();
                     book->run();
                 }
+                if(ev.key.code == Keyboard::T){
+                    int x = player->getX() + xForTexture;
+                    if(x > 740 && x < 1010 && player->getY() < 320) { runFirstBoard(); }
+                }
             }   
         }
         float time = clock.getElapsedTime().asMicroseconds(); 
@@ -155,5 +160,16 @@ void Home::run(){
         }
 
         drawAll();
+    }
+}
+
+bool Home::runFirstBoard(){
+    firstBoard.setFinishFlag(hasNote == NoteFourth::first || hasNote == NoteFourth::all);
+    firstBoard.setSoundPlaying(soundIsPlay);
+    if(firstBoard.run()){
+        if(hasNote == NoteFourth::none || hasNote == NoteFourth::first){
+            hasNote = NoteFourth::first;
+        }
+        else {hasNote = NoteFourth::all;}
     }
 }
