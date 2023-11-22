@@ -43,6 +43,7 @@ class Cow{
         void getColor(pair<int, int> cowBull);
         void drawAnswer();
         bool isSpace();
+        void draw();
     public:
         void setAnswer(string newAnswer);
         string getAnswer();

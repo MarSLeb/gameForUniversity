@@ -141,6 +141,14 @@ void Cow::drawAnswer(){
     for(int i = 0; i < 2; i++) {window->draw(upTexture[i]);}
 }
 
+void Cow::draw(){
+    window->draw(background);
+    drawAnswer();
+    drawNum();
+    window->draw(key);
+    window->display();
+}
+
 bool Cow::run(bool havingBook){
     background.setTexture(&texture);
     if(!havingBook){
@@ -150,11 +158,7 @@ bool Cow::run(bool havingBook){
     key.setTexture(&keyTexture);
     window->clear();
 
-    window->draw(background);
-    drawAnswer();
-    drawNum();
-    window->draw(key);
-    window->display();
+    draw();
 
     while(window->isOpen()){
         Event ev;
@@ -186,12 +190,7 @@ bool Cow::run(bool havingBook){
                 if(ev.key.code == Keyboard::I) {return true;}
             }
         }
-        window->clear();
-        window->draw(background);
-        drawAnswer();
-        drawNum();
-        window->draw(key);
-        window->display();
+        draw();
     }
     return false;
 }
