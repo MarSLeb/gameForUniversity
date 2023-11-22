@@ -1,6 +1,13 @@
-run: Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o Animation.o Home.o FirstBoard.o
+.PHONY: run clean
+
+SFMLFLAG = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
+OBJECTS = Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o \
+		  SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o Animation.o Home.o FirstBoard.o
+
+run:  $(OBJECTS)
 	g++ -c main.cpp 
-	g++ main.o Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o  Animation.o Home.o FirstBoard.o -o out -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ main.o $(OBJECTS) -o out $(SFMLFLAG)
 	./out
 
 Engine.o: Engine.cpp
@@ -52,5 +59,4 @@ FirstBoard.o: FirstBoard.cpp
 	g++ -c FirstBoard.cpp
 
 clean:
-	rm *.o
-	rm out
+	rm *.o out
