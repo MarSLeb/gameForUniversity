@@ -30,33 +30,27 @@ save(save), window(window), player(player), book(book), havingBook(havingBook){
     noticeTexture.loadFromFile("foto/notion.png");
     notice.setTexture(&noticeTexture);
 
-    vector<lines> upLine;
-    upLine.push_back(lines(245, 560, 185, 190));
-    upLine.push_back(lines(0, 245, 230, 232));
-    upLine.push_back(lines(560, 960, 245, 250));
-    upBord = Borders(upLine);
-
-    vector<lines> downLines;
-    downLines.push_back(lines(0, 960, 403, 405));
-    downLines.push_back(lines(0, 60, 240, 243));
-    downBord = Borders(downLines);
-
-    vector<lines> leftLines;
-    leftLines.push_back(lines(60, 63, 240, 403));
-    leftLines.push_back(lines(240, 245, 185, 230));
-    leftBord = Borders(leftLines);
-
-    vector<lines> rightLines;
-    rightLines.push_back(lines(555, 560, 185, 245));
-    rightBord = Borders(rightLines);
+    RectangleShape board;
+    board = RectangleShape(Vector2f(260, 230)); // bookcase
+    board.setPosition(0, 0);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(375, 185)); // door
+    board.setPosition(260, 0);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(350, 245)); // sofa
+    board.setPosition(635, 0);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(80, 90)); // table
+    board.setPosition(0, 345);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(960, 250)); // down bord
+    board.setPosition(0, 505);
+    boards.push_back(board);
 
     potionPazzle = Potion(window, book, havingBook ? Pickup::Book : Pickup::None);
     setting = Setting(save, window);
     deed = make_unique<Deed>(window);
 
-    buffer.loadFromFile("muziek/step.ogg");
-    sound.setBuffer(buffer);
-    sound.setVolume(80);
     bufferForNotion.loadFromFile("muziek/notion.ogg");
     notionSound.setBuffer(bufferForNotion);
     notionSound.setVolume(40);
@@ -136,7 +130,6 @@ void SecondLoc::run(){
     addNote();
 
     if(soundIsPlay) {music.play();}
-    else {sound.setVolume(0);}
 
     drawAll(0);
 
@@ -148,12 +141,12 @@ void SecondLoc::run(){
         while(window->pollEvent(ev)){
             if(ev.type == Event::KeyReleased){
                 if(ev.key.code == Keyboard::Escape){
+                    drawAll(0);
                     switch (setting.run(createSaveString())){
                         case menuItem::save:
                             return; 
                             break;
                         case menuItem::sound:
-                            sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
                             music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
                             notionSound.getVolume() == 0 ? notionSound.setVolume(80) : notionSound.setVolume(0);
                             soundIsPlay? soundIsPlay = false : soundIsPlay = true;
@@ -199,43 +192,7 @@ void SecondLoc::run(){
         float time = clock.getElapsedTime().asMicroseconds(); 
 		clock.restart(); 
 	    time = time / 800; 
-
-        if(Keyboard::isKeyPressed(Keyboard::S)){
-            if(!rightBord.getContact(player->getX(), player->getY())){
-                player->goRight(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goRight(0);}
-        }
-        else if(Keyboard::isKeyPressed(Keyboard::A)){
-            if(!leftBord.getContact(player->getX(), player->getY())){
-                player->goLeft(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goLeft(0);}
-        } 
-        else if(Keyboard::isKeyPressed(Keyboard::W)){
-            if(!upBord.getContact(player->getX(), player->getY())){
-                player->goUp(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goUp(0);}
-        }
-        else if(Keyboard::isKeyPressed(Keyboard::R)){
-            if(!downBord.getContact(player->getX(), player->getY())){
-                player->goDown(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goDown(0);}
-        }
+        player->movePlayer(time, soundIsPlay, boards);
         drawAll(clockForNotice.getElapsedTime().asSeconds());   
     }
 }

@@ -37,27 +37,21 @@ class SecondLoc{
         bool finishPotioin = false;
         bool havingBook;
 
-        Potion potionPazzle;
-
-        Borders upBord;
-        Borders downBord;
-        Borders leftBord;
-        Borders rightBord;
+        vector<RectangleShape> boards;
 
         shared_ptr<Player> player;
         shared_ptr<Book> book;
         unique_ptr<Deed> deed;
         Setting setting;
+        Potion potionPazzle;
 
         Texture noticeTexture;
         RectangleShape notice = RectangleShape(Vector2f(960, 540));
         bool noticeIsRun = false;
 
-        Sound sound;
         Music music;
         Sound notionSound;
         bool soundIsPlay = true;
-        SoundBuffer buffer;
         SoundBuffer bufferForNotion;
         int save;
         bool hasNote = false;

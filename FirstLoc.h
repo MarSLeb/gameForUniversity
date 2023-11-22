@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <memory>
+#include <vector>
 #include "Player.h"
 #include "Book.h"
 #include <array>
@@ -27,13 +28,7 @@ class FirstLoc{
         RectangleShape bookSprite = RectangleShape(Vector2f(960, 540));
 
         Music music;
-        Sound sound;
-        SoundBuffer buffer;
-
-        Borders upBord;
-        Borders downBord;
-        Borders leftBord;
-        Borders rightBord;
+        vector<RectangleShape> boards;
 
         shared_ptr<Player> player;
         shared_ptr<Book> book;
