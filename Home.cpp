@@ -26,6 +26,7 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
 
     setting = Setting(save, window);
     firstBoard = FirstBoard(window);
+    deed = make_unique<Deed>(window);
 
     vector<lines> upLine;
     upLine.push_back(lines(310, 335, 0, 290));
@@ -56,6 +57,12 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
 }
 
 void Home::setCountHasNote(NoteFourth note) { hasNote = note; }
+
+void Home::died(){
+    music.pause();
+    setting.died();
+    deed->died(soundIsPlay);
+}
 
 void Home::goRight(float time){
     if(xForTexture < 960 && player->getX() >= 450 && player->getX() <= 480){
@@ -117,7 +124,10 @@ void Home::run(){
                 if(ev.key.code == Keyboard::T){
                     int x = player->getX() + xForTexture;
                     if(x > 740 && x < 1010 && player->getY() < 320) { runFirstBoard(); }
-                    if(x > 1280 && x < 1530 && player->getY() < 320) { runSecondBoard();  }
+                    else if(x > 1280 && x < 1530 && player->getY() < 320) { runSecondBoard();  }
+                    else if(x > 610 && x < 710 && player->getY() < 300) { died(); return; }
+                    else if(x > 1695 && x < 1789 && player->getY() < 300) { died(); return; }
+                    else if(x > 1120 && x < 1220 && player->getY() < 300) { }
                 }
             }   
         }

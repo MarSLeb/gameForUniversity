@@ -8,6 +8,7 @@
 #include "Borders.h"
 #include "FirstBoard.h"
 #include "SecondBoard.h"
+#include "Deed.h"
 
 using namespace std;
 using namespace sf;
@@ -31,6 +32,7 @@ class Home{
         Setting setting;
         FirstBoard firstBoard;
         SecondBoard secondBoard;
+        unique_ptr<Deed> deed;
 
         Borders upBord;
         Borders downBord;
@@ -51,6 +53,7 @@ class Home{
         bool runFirstBoard();
         bool runSecondBoard();
     public:
+        void died();
         void setCountHasNote(NoteFourth note);
         Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
             bool havingBook,  bool soundIsPlay = true);
