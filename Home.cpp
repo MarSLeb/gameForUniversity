@@ -5,7 +5,9 @@ string Home::createSaveString() {return "h" + to_string(book->getPageTwo()) + to
 
 Home::Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
 bool havingBook, bool soundIsPlay):
-save(save), window(window), player(player), book(book), havingBook(havingBook), soundIsPlay(soundIsPlay){
+save(save), window(window), player(player), book(book), havingBook(havingBook), soundIsPlay(soundIsPlay),
+    secondBoard(SecondBoard(window))
+    {
     texture.loadFromFile("foto/home.png");
     havingBook == true ? keyTexture.loadFromFile("foto/key.png") :
                          keyTexture.loadFromFile("foto/keyNoBook.png");
@@ -115,6 +117,7 @@ void Home::run(){
                 if(ev.key.code == Keyboard::T){
                     int x = player->getX() + xForTexture;
                     if(x > 740 && x < 1010 && player->getY() < 320) { runFirstBoard(); }
+                    if(x > 1280 && x < 1530 && player->getY() < 320) { runSecondBoard();  }
                 }
             }   
         }
@@ -170,6 +173,17 @@ bool Home::runFirstBoard(){
         if(hasNote == NoteFourth::none || hasNote == NoteFourth::first){
             hasNote = NoteFourth::first;
         }
-        else {hasNote = NoteFourth::all;}
+        else { hasNote = NoteFourth::all; }
+    }
+}
+
+bool Home::runSecondBoard(){
+    secondBoard.setFinishFlag(hasNote == NoteFourth::second || hasNote == NoteFourth::all);
+    secondBoard.setSoundPlaying(soundIsPlay);
+    if(secondBoard.run()){
+        if(hasNote == NoteFourth::none || hasNote == NoteFourth::first){
+            hasNote = NoteFourth::second;
+        }
+        else { hasNote = NoteFourth::all; }
     }
 }

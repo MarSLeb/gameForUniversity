@@ -7,6 +7,7 @@
 #include "Setting.h"
 #include "Borders.h"
 #include "FirstBoard.h"
+#include "SecondBoard.h"
 
 using namespace std;
 using namespace sf;
@@ -29,6 +30,7 @@ class Home{
         shared_ptr<Book> book;
         Setting setting;
         FirstBoard firstBoard;
+        SecondBoard secondBoard;
 
         Borders upBord;
         Borders downBord;

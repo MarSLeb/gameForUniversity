@@ -3,12 +3,15 @@
 SFMLFLAG = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 OBJECTS = Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o \
-		  SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o Animation.o Home.o FirstBoard.o
+		  SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o Animation.o \
+		  Home.o FirstBoard.o SecondBoard.o main.o
 
 run:  $(OBJECTS)
-	g++ -c main.cpp 
-	g++ main.o $(OBJECTS) -o out $(SFMLFLAG)
+	g++ $(OBJECTS) -o out $(SFMLFLAG)
 	./out
+
+main.o: main.cpp
+	g++ -c main.cpp 
 
 Engine.o: Engine.cpp
 	g++ -c Engine.cpp
@@ -57,6 +60,9 @@ Home.o: Home.cpp
 
 FirstBoard.o: FirstBoard.cpp
 	g++ -c FirstBoard.cpp
+
+SecondBoard.o: SecondBoard.cpp
+	g++ -c SecondBoard.cpp
 
 clean:
 	rm *.o out

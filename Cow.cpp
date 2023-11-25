@@ -142,6 +142,7 @@ void Cow::drawAnswer(){
 }
 
 void Cow::draw(){
+    window->clear();
     window->draw(background);
     drawAnswer();
     drawNum();
@@ -156,7 +157,6 @@ bool Cow::run(bool havingBook){
         key.setTexture(&keyTexture);
     }
     key.setTexture(&keyTexture);
-    window->clear();
 
     draw();
 

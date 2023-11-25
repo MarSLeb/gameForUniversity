@@ -7,7 +7,7 @@
 using namespace std;
 using namespace sf;
 
-class FirstBoard{
+class SecondBoard{
     private:
         shared_ptr<RenderWindow> window;
         Texture texturePuzzle;
@@ -15,20 +15,26 @@ class FirstBoard{
         Texture textureNote;
         RectangleShape groundNote = RectangleShape(Vector2f(960, 540));
 
-        int current = 0;
         SoundBuffer buffer;
         Sound sound;
         Font font;
         bool finish = false;
         bool soundIsPlay = true;
+        array<Text, 4> chessPieces;
+        array<array<Text, 8>, 2> chessCoordinates;
+        array<int, 3> currentInSector;
+        Text select;
+        int currentSector;
 
+        void draw();
+        bool checkAnswer();
         void right();
         void left();
-        void draw();
-        void checkCurrentAnswer();
+        void down();
+        void up();
+        void setText(Text& text, String str, float xpos, float ypos, Color color);
     public:
-        FirstBoard();
-        FirstBoard(shared_ptr<RenderWindow> window);
+        SecondBoard(shared_ptr<RenderWindow> window);
         void setFinishFlag(bool flag);
         void setSoundPlaying(bool flag);
         bool run();
