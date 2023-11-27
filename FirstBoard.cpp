@@ -51,7 +51,7 @@ bool FirstBoard::run(){
 }
 
 void FirstBoard::checkCurrentAnswer(){
-    if(current == 3) { finish = true; return; }
+    if(current == 1) { finish = true; return; }
     if(soundIsPlay) { sound.play(); }
 }
 
