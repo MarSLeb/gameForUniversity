@@ -1,11 +1,11 @@
 #include "SecondBoard.h"
 #include <iostream>
 
-const int Y = 300;
-const int X = 300;
-const int STEP = 100;
+const int Y = 345;
+const int X = 550;
+const int STEP = 115;
 Color COLOR = Color::Black;
-const int STEPYFORSELECT = 20;
+const int YFORCURSOR = Y + 20;
 const vector<string> CHESSCOLUMN = {"A", "B", "C", "D", "E", "F", "G", "H"};
 
 SecondBoard::SecondBoard(shared_ptr<RenderWindow> window): window(window){
@@ -37,7 +37,7 @@ SecondBoard::SecondBoard(shared_ptr<RenderWindow> window): window(window){
         currentInSector[i + 1] = 0;
     }
 
-    setText(select, "_",  X, Y - STEPYFORSELECT, Color::Red);
+    setText(select, "_",  X, YFORCURSOR, Color::Red);
     currentSector = 0;
 }
 
@@ -57,13 +57,13 @@ bool SecondBoard::checkAnswer(){
 void SecondBoard::right(){
     if(currentSector == 2) { return; }
     currentSector++;
-    select.setPosition(select.getPosition().x + STEP, Y - STEPYFORSELECT);
+    select.setPosition(select.getPosition().x + STEP, YFORCURSOR);
 }
 
 void SecondBoard::left(){
     if(currentSector == 0) { return; }
     currentSector--;
-    select.setPosition(select.getPosition().x - STEP, Y - STEPYFORSELECT);
+    select.setPosition(select.getPosition().x - STEP, YFORCURSOR);
 }
 
 void SecondBoard::down(){
@@ -123,7 +123,7 @@ void SecondBoard::setText(Text& text, String str, float xpos, float ypos, Color 
     text.setFont(font);
     text.setFillColor(color);
     text.setString(str);    
-    text.setCharacterSize(110);
+    text.setCharacterSize(70);
     text.setPosition(xpos, ypos);
     text.setOutlineThickness(3);
     text.setOutlineColor(color);
