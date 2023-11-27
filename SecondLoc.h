@@ -48,6 +48,7 @@ class SecondLoc{
         Texture noticeTexture;
         RectangleShape notice = RectangleShape(Vector2f(960, 540));
         bool noticeIsRun = false;
+        bool noticeEnd = true;
 
         Music music;
         Sound notionSound;

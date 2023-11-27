@@ -93,7 +93,8 @@ void SecondLoc::drawAll(float time){
         drawPotion();
         window->draw(key);
         if(hasNote && !havingBook) { window->draw(listKey); }
-        if(noticeIsRun && time < 2.5) {window->draw(notice);}
+        if(!noticeEnd && time < 2.5) { window->draw(notice); }
+        if(noticeIsRun && time >= 2.5) { noticeEnd = true; }
         window->display();
 }
 
@@ -171,6 +172,7 @@ void SecondLoc::run(){
                         book->setPage(NoteSecond::all); 
                         addNote();
                         noticeIsRun = true; 
+                        noticeEnd = false;
                         if(soundIsPlay) {notionSound.play();}
                     }
                     if(player->getY() >= 250 && player->getX() <= 90 && !finishPotioin){
