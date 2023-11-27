@@ -173,7 +173,7 @@ void SecondLoc::run(){
                         noticeIsRun = true; 
                         if(soundIsPlay) {notionSound.play();}
                     }
-                    if(player->getY() >= 250 && player->getX() <= 70 && !finishPotioin){
+                    if(player->getY() >= 250 && player->getX() <= 90 && !finishPotioin){
                         curPotion = potionPazzle.run(hasNote);
                         if(curPotion != 8) {finishPotioin = true;}
                         if(curPotion == 6 || curPotion == 3 || curPotion == 2) {music.pause(); died(); return;}

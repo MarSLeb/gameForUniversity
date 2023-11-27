@@ -85,6 +85,7 @@ bool Street::drawRepl(){
         Home home = Home(save, window, player, book, soundIsPlay, havingBook);
         sound.pause();
         music.pause();
+        home.setValume(soundIsPlay);
         home.run();
         return false;
     }

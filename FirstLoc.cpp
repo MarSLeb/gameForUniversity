@@ -41,7 +41,7 @@ window(window), player(player), book(book), save(save){
     board = RectangleShape(Vector2f(300, 180)); // vending machine
     board.setPosition(676, 0);
     boards.push_back(board);
-    board = RectangleShape(Vector2f(230, 120)); // sofa
+    board = RectangleShape(Vector2f(230, 120)); // sofa + table
     board.setPosition(715, 300);
     boards.push_back(board);
     board = RectangleShape(Vector2f(42, 600)); // left board
@@ -120,7 +120,7 @@ void FirstLoc::run(){
                         }
                         background.setTexture(&texture);
                     }
-                    if(bookInLoc && player->getY() >= 250 && player->getY() <= 350 && player->getX() >= 620){
+                    if(bookInLoc && player->getY() >= 250 && player->getY() <= 350 && player->getX() >= 600){
                         bookInLoc = false;
                         keyTexture.loadFromFile("foto/key.png");
                         key.setTexture(&keyTexture);

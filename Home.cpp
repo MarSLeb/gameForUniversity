@@ -58,6 +58,8 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
 
 void Home::setCountHasNote(NoteFourth note) { hasNote = note; }
 
+void Home::setValume(bool flag) { soundIsPlay = flag; }
+
 void Home::died(){
     music.pause();
     setting.died();
@@ -127,7 +129,11 @@ void Home::run(){
                     else if(x > 1280 && x < 1530 && player->getY() < 320) { runSecondBoard();  }
                     else if(x > 610 && x < 710 && player->getY() < 300) { died(); return; }
                     else if(x > 1695 && x < 1789 && player->getY() < 300) { died(); return; }
-                    else if(x > 1120 && x < 1220 && player->getY() < 300) { }
+                    else if(x > 1120 && x < 1220 && player->getY() < 300){ 
+                        music.pause();
+                        setting.died();
+                        return;
+                    }
                 }
             }   
         }

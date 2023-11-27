@@ -54,6 +54,7 @@ class Home{
         bool runSecondBoard();
     public:
         void died();
+        void setValume(bool flag);
         void setCountHasNote(NoteFourth note);
         Home(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, shared_ptr<Book> book,
             bool havingBook,  bool soundIsPlay = true);
