@@ -93,6 +93,7 @@ void Home::drawAll(){
 }
 
 void Home::run(){
+    book->setPage((NoteFourth)hasNote);
     if(soundIsPlay) {music.play();}
     else {sound.setVolume(0);}
 
@@ -190,6 +191,7 @@ bool Home::runFirstBoard(){
             hasNote = NoteFourth::first;
         }
         else { hasNote = NoteFourth::all; }
+        book->setPage((NoteFourth)hasNote);
     }
 }
 
@@ -197,9 +199,10 @@ bool Home::runSecondBoard(){
     secondBoard.setFinishFlag(hasNote == NoteFourth::second || hasNote == NoteFourth::all);
     secondBoard.setSoundPlaying(soundIsPlay);
     if(secondBoard.run()){
-        if(hasNote == NoteFourth::none || hasNote == NoteFourth::first){
+        if(hasNote == NoteFourth::none || hasNote == NoteFourth::second){
             hasNote = NoteFourth::second;
         }
         else { hasNote = NoteFourth::all; }
+        book->setPage((NoteFourth)hasNote);
     }
 }
