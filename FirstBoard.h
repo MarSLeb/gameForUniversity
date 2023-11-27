@@ -14,6 +14,8 @@ class FirstBoard{
         RectangleShape groundPuzzle = RectangleShape(Vector2f(960, 540));
         Texture textureNote;
         RectangleShape groundNote = RectangleShape(Vector2f(960, 540));
+        Texture textureKey;
+        RectangleShape key = RectangleShape(Vector2f(960, 540));
 
         int current = 0;
         SoundBuffer buffer;

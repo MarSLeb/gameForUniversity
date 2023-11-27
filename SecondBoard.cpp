@@ -11,6 +11,7 @@ const vector<string> CHESSCOLUMN = {"A", "B", "C", "D", "E", "F", "G", "H"};
 SecondBoard::SecondBoard(shared_ptr<RenderWindow> window): window(window){
     texturePuzzle.loadFromFile("foto/home/second/secondBoard.png");
     textureNote.loadFromFile("foto/home/second/end.png");
+    textureKey.loadFromFile("foto/home/second/key.png");
 
     font.loadFromFile("font/menu.ttf");
     
@@ -91,12 +92,14 @@ void SecondBoard::draw(){
         window->draw(chessCoordinates[i - 1][currentInSector[i]]);
     }
     if(finish) { window->draw(groundNote); }
+    window->draw(key);
     window->display();
 }
 
 bool SecondBoard::run(){
     groundNote.setTexture(&textureNote);
     groundPuzzle.setTexture(&texturePuzzle);
+    key.setTexture(&textureKey);
 
     draw();
 

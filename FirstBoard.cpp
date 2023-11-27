@@ -7,6 +7,8 @@ FirstBoard::FirstBoard(shared_ptr<RenderWindow> window): window(window){
     font.loadFromFile("font/number.TTF");
     textureNote.loadFromFile("foto/home/first/end.png");
     texturePuzzle.loadFromFile("foto/home/first/0.png");
+    textureKey.loadFromFile("foto/home/first/key.png");
+
     buffer.loadFromFile("muziek/miss.ogg");
     sound.setBuffer(buffer);
     sound.setVolume(100);
@@ -35,6 +37,8 @@ void FirstBoard::right(){
 bool FirstBoard::run(){
     groundNote.setTexture(&textureNote);
     groundPuzzle.setTexture(&texturePuzzle);
+    key.setTexture(&textureKey);
+
     draw();
     while(window->isOpen()){
         Event ev;
@@ -59,5 +63,6 @@ void FirstBoard::draw(){
     window->clear();
     window->draw(groundPuzzle);
     if(finish) { window->draw(groundNote); }
+    window->draw(key);
     window->display();
 }

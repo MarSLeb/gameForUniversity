@@ -14,13 +14,15 @@ class SecondBoard{
         RectangleShape groundPuzzle = RectangleShape(Vector2f(960, 540));
         Texture textureNote;
         RectangleShape groundNote = RectangleShape(Vector2f(960, 540));
+        Texture textureKey;
+        RectangleShape key = RectangleShape(Vector2f(960, 540));
 
         SoundBuffer buffer;
         Sound sound;
         Font font;
         bool finish = false;
         bool soundIsPlay = true;
-        array<Text, 4> chessPieces;
+        array<Text, 5> chessPieces;
         array<array<Text, 8>, 2> chessCoordinates;
         array<int, 3> currentInSector;
         Text select;
