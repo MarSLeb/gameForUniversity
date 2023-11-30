@@ -63,6 +63,7 @@ class SecondLoc{
         void drawAll(float time);
         void addNote();
         void drawNote();
+        bool runSetting();
     public:
         void setValue(bool flag);
         SecondLoc(int save, shared_ptr<RenderWindow> window, shared_ptr<Player> player, 

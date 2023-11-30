@@ -137,6 +137,20 @@ void Street::drawAll(){
 
 void Street::setValue(bool flag) {soundIsPlay = flag;}
 
+bool Street::runSetting(){
+    drawAll();
+    switch (setting.run(createSaveString())){
+        case menuItem::save:
+            return false;
+            break;
+        case menuItem::sound:
+            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
+            soundIsPlay ? soundIsPlay = false : soundIsPlay = true;
+            break;
+    }
+    return true;
+}
+
 void Street::run(int num){
     player->setPosition(390, 30);
     if(num != 4) {
@@ -154,21 +168,9 @@ void Street::run(int num){
     while(window->isOpen()){
         Event event;
         while (window->pollEvent(event)){
+            if(event.type == Event::LostFocus) { if(!runSetting()) {return;} }
             if(event.type == Event::KeyReleased){
-                if(event.key.code == Keyboard::Escape){
-                    drawAll();
-                    switch (setting.run(createSaveString())){
-                        case menuItem::save:
-                            return; break;
-                        case menuItem::sound:
-                            sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
-                            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
-                            soundIsPlay == true ? soundIsPlay = false : soundIsPlay = true;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                if(event.key.code == Keyboard::Escape) { if(!runSetting()) {return;} }
                 if(event.key.code == Keyboard::F && havingBook){
                     drawAll();
                     book->run();

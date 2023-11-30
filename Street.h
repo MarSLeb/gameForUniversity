@@ -48,6 +48,7 @@ class Street{
         bool drawRepl();
         string createSaveString();
         void drawAll();
+        bool runSetting();
     public:
         void setValue(bool flag);
         void setPageInBook(int num);

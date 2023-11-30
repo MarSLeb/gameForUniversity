@@ -123,6 +123,20 @@ void SecondLoc::drawNote(){
    
 }
 
+bool SecondLoc::runSetting(){
+    drawAll(0);
+    switch (setting.run(createSaveString())){
+        case menuItem::save:
+            return false;
+            break;
+        case menuItem::sound:
+            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
+            soundIsPlay ? soundIsPlay = false : soundIsPlay = true;
+            break;
+    }
+    return true;
+}
+
 void SecondLoc::run(){
     background.setTexture(&texture);
     upground.setTexture(&upTexture);
@@ -140,22 +154,9 @@ void SecondLoc::run(){
         Event ev;
         if(!noticeIsRun) {clockForNotice.restart();}
         while(window->pollEvent(ev)){
+            if(ev.type == Event::LostFocus) { if(!runSetting()) { return; } }
             if(ev.type == Event::KeyReleased){
-                if(ev.key.code == Keyboard::Escape){
-                    drawAll(0);
-                    switch (setting.run(createSaveString())){
-                        case menuItem::save:
-                            return; 
-                            break;
-                        case menuItem::sound:
-                            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
-                            notionSound.getVolume() == 0 ? notionSound.setVolume(80) : notionSound.setVolume(0);
-                            soundIsPlay? soundIsPlay = false : soundIsPlay = true;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                if(ev.key.code == Keyboard::Escape) { if(!runSetting()) { return; } }
                 if(ev.key.code == Keyboard::F){
                     drawAll(clockForNotice.getElapsedTime().asSeconds());
                     if(havingBook){

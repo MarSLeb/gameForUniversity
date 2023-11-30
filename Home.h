@@ -52,6 +52,7 @@ class Home{
 
         bool runFirstBoard();
         bool runSecondBoard();
+        bool runSetting();
     public:
         void died();
         void setValume(bool flag);

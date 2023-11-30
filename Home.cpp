@@ -92,6 +92,20 @@ void Home::drawAll(){
     window->display();
 }
 
+bool Home::runSetting(){
+    drawAll();
+    switch (setting.run(createSaveString())){
+        case menuItem::save:
+            return false; 
+            break;
+        case menuItem::sound:
+            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
+            soundIsPlay ? soundIsPlay = false : soundIsPlay = true;
+            break;
+    }
+    return true;
+}
+
 void Home::run(){
     book->setPage((NoteFourth)hasNote);
     if(soundIsPlay) {music.play();}
@@ -105,21 +119,9 @@ void Home::run(){
     while (window->isOpen()){
         Event ev;
         while (window->pollEvent(ev)){
+            if(ev.type == Event::LostFocus) { if(!runSetting()) { return; } }
             if(ev.type == Event::KeyReleased){
-                if(ev.key.code == Keyboard::Escape){
-                    drawAll();
-                    switch (setting.run(createSaveString())){
-                        case menuItem::save:
-                            return; break;
-                        case menuItem::sound:
-                            sound.getVolume() == 0 ? sound.setVolume(80) : sound.setVolume(0);
-                            music.getStatus() == SoundSource::Status::Paused ? music.play() : music.pause();
-                            soundIsPlay? soundIsPlay = false : soundIsPlay = true;
-                            break;
-                       default:
-                            break;
-                    }
-                }
+                if(ev.key.code == Keyboard::Escape) { if(!runSetting()) { return; } }
                 if(ev.key.code == Keyboard::F){
                     drawAll();
                     book->run();

@@ -41,6 +41,7 @@ class FirstLoc{
         string createSaveString();
         void drawBook();
         void drawAll();
+        bool runSetting();
     public:
         void setBookInLoc(bool flag);
         void setPageInBook(int num);
