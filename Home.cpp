@@ -20,7 +20,7 @@ save(save), window(window), player(player), book(book), havingBook(havingBook), 
     buffer.loadFromFile("muziek/step.ogg");
     sound.setBuffer(buffer);
     sound.setVolume(80);
-    music.openFromFile("muziek/2.ogg");
+    music.openFromFile("muziek/home.ogg");
     music.setVolume(10);
     music.setLoop(true);
 

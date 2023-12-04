@@ -55,7 +55,7 @@ save(save), window(window), player(player), book(book), havingBook(havingBook){
     notionSound.setBuffer(bufferForNotion);
     notionSound.setVolume(40);
     music.openFromFile("muziek/2.ogg");
-    music.setVolume(10);
+    music.setVolume(20);
     music.setLoop(true);
 }
 
