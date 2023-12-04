@@ -154,7 +154,9 @@ bool Cow::run(bool havingBook){
     background.setTexture(&texture);
     if(!havingBook){
         keyTexture.loadFromFile("foto/keyNoBook.png");
-        key.setTexture(&keyTexture);
+    }
+    else{
+        keyTexture.loadFromFile("foto/key.png");
     }
     key.setTexture(&keyTexture);
 
