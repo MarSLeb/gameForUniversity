@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <memory>
+#include <vector>
 #include "Deed.h"
 #include "Borders.h"
 #include "Setting.h"
@@ -38,11 +39,7 @@ class Street{
         int save;
         bool soundIsPlay = true;
         bool havingBook;
-
-        Borders upBord;
-        Borders downBord;
-        Borders leftBord;
-        Borders rightBord;
+        vector<RectangleShape> boards;
 
         void drawUp();
         bool drawRepl();

@@ -24,39 +24,31 @@ save(save), window(window), book(book), player(player), havingBook(havingBook){
     music.setVolume(5);
     music.setLoop(true);
 
-    vector<lines> upLines;
-    upLines.push_back(lines(0, 300, 40, 45));
-    upLines.push_back(lines(460, 960, 40, 45));
-    upLines.push_back(lines(0, 260, 365, 370));
-    upLines.push_back(lines(595, 960, 365, 370));
-    upLines.push_back(lines(80, 180, 120, 125));
-    upLines.push_back(lines(460, 545, 307, 312));
-    upLines.push_back(lines(620, 740, 70, 75)); //
-    upBord = Borders(upLines);
-
-    vector<lines> downLines;
-    downLines.push_back(lines(0, 960, 395, 400));
-    downLines.push_back(lines(595, 960, 295, 300));
-    downLines.push_back(lines(0, 260, 295, 300));
-    downLines.push_back(lines(80, 180, 80, 85));
-    downLines.push_back(lines(460, 545, 280, 285));
-    downBord = Borders(downLines);
-
-    vector<lines> leftLines;
-    leftLines.push_back(lines(300, 305, 0, 45));
-    leftLines.push_back(lines(180, 185, 80, 120));
-    leftLines.push_back(lines(260, 265, 295, 365));
-    leftLines.push_back(lines(545, 560, 280, 307));
-    leftLines.push_back(lines(740, 745, 0, 70)); //
-    leftBord = Borders(leftLines);
-
-    vector<lines> rightLines;
-    rightLines.push_back(lines(595, 600, 295, 365));
-    rightLines.push_back(lines(460, 465, 280, 307)); 
-    rightLines.push_back(lines(620, 625, 0, 70)); //
-    rightLines.push_back(lines(80, 85, 80, 120));
-    rightLines.push_back(lines(460, 485, 0, 45));
-    rightBord = Borders(rightLines);
+    RectangleShape board;
+    board = RectangleShape(Vector2f(350, 50)); // tree l
+    board.setPosition(0, 0);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(430, 50)); // tree r
+    board.setPosition(530, 0);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(960, 300)); // road
+    board.setPosition(0, 500);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(290, 5)); // bus stop l
+    board.setPosition(0, 385);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(290, 5)); // bus stop r
+    board.setPosition(685, 385);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(30, 5)); // mari
+    board.setPosition(170, 150);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(50, 50)); // bazil
+    board.setPosition(705, 50);
+    boards.push_back(board);
+    board = RectangleShape(Vector2f(30, 5)); // kim
+    board.setPosition(545, 340);
+    boards.push_back(board);
 }
 
 string Street::createSaveString() {return ("s" + to_string(book->getPageTwo()) + to_string(havingBook));}
@@ -77,9 +69,9 @@ bool Street::drawRepl(){
     int y = player->getY();
     Texture say;
     RectangleShape sayText = RectangleShape(Vector2f(960, 540));
-    if(x >= 50 && x <= 200 && y >= 50 && y <= 150) {say.loadFromFile("foto/street/mari.png");}
+    if(x >= 50 && x <= 200 && y >= 50 && y <= 170) {say.loadFromFile("foto/street/mari.png");}
     else if(x >= 600 && x <= 760 && y <= 110) {say.loadFromFile("foto/street/bazil.png");}
-    else if(x >= 450 && x <= 560 && y >= 210 && y <= 360) {say.loadFromFile("foto/street/kim.png");}
+    else if(x >= 430 && x < 580 && y >= 210 && y <= 360) {say.loadFromFile("foto/street/kim.png");}
     else if(x <= 280 && y >= 270 && y <= 400) {music.pause(); setting.died(); deed->died(soundIsPlay); return false;}
     else if(x >= 580 && y >= 270 && y <= 400){
         Home home = Home(save, window, player, book, soundIsPlay, havingBook);
@@ -182,44 +174,7 @@ void Street::run(int num){
         float time = clock.getElapsedTime().asMicroseconds(); 
 	    clock.restart(); 
 	    time = time / 800; 
-
-        if(Keyboard::isKeyPressed(Keyboard::S)){
-            if(!rightBord.getContact(player->getX(), player->getY())){
-                player->goRight(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goRight(0);}
-        }
-        else if(Keyboard::isKeyPressed(Keyboard::A)){
-            if(!leftBord.getContact(player->getX(), player->getY())){
-                player->goLeft(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goLeft(0);}
-        } 
-        else if(Keyboard::isKeyPressed(Keyboard::W)){
-            if(!upBord.getContact(player->getX(), player->getY())){
-                player->goUp(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goUp(0);}
-        }
-        else if(Keyboard::isKeyPressed(Keyboard::R)){
-            if(!downBord.getContact(player->getX(), player->getY())){
-                player->goDown(time);
-                if (sound.getStatus() != sf::SoundSource::Status::Playing){
-                    sound.play();
-                }
-            }
-            else {player->goDown(0);}
-        }
-        
+        player->movePlayer(time, soundIsPlay, boards);
         drawAll();
     }
 }
