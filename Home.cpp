@@ -133,8 +133,10 @@ void Home::run(){
                     else if(x > 610 && x < 710 && player->getY() < 300) { died(); return; }
                     else if(x > 1695 && x < 1789 && player->getY() < 300) { died(); return; }
                     else if(x > 1120 && x < 1220 && player->getY() < 300){ 
-                        music.pause();
                         setting.died();
+                        Animation anim = Animation(window, Anim::end);
+                        anim.run();
+                        music.pause();
                         return;
                     }
                 }

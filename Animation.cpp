@@ -9,7 +9,7 @@ Animation::Animation(shared_ptr<RenderWindow> window, Anim numberOfAnimation): w
         }
     }
     else{
-        countTexture = 40;
+        countTexture = 30;
         for(int i = 0; i < countTexture; i++){
             texture[i].loadFromFile("animation/end/" + to_string(i) + ".png");
         }

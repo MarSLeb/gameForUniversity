@@ -9,6 +9,7 @@
 #include "FirstBoard.h"
 #include "SecondBoard.h"
 #include "Deed.h"
+#include "Animation.h"
 
 using namespace std;
 using namespace sf;
