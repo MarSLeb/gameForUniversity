@@ -18,6 +18,7 @@ class Engine{
         
         unique_ptr<Save> save;
         unique_ptr<GameMenu> menu;
+        void draw();
     public:
         Engine();
         void run();

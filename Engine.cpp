@@ -26,13 +26,17 @@ Engine::Engine(){
     background.setTexture(&background_texture);
 }
 
+void Engine::draw(){
+    window->clear();
+    window->draw(background);
+    menu->draw();
+    window->display();
+}
+
 void Engine::run(){
     Font font;
     font.loadFromFile("font/menu.ttf");
-    window->clear();
-    window->draw(background);
-    window->display();
-
+    draw();
     while(window->isOpen()){
         Event event;
         while(window->pollEvent(event)){
@@ -47,7 +51,6 @@ void Engine::run(){
                         case 0:
                             save->setCurrent(0);
                             save->run();
-                            background.setTexture(&background_texture);
                             break;
                         case 1:
                             window->close();
@@ -58,10 +61,7 @@ void Engine::run(){
                 } 
             }
         }
-        window->clear();
-        window->draw(background);
-        menu->draw();
-        window->display();
+        draw();
     }
 }
 
