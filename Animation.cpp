@@ -29,7 +29,11 @@ void Animation::run(){
         float time = clock.getElapsedTime().asMilliseconds();
         if(time >= 250){
             clock.restart();
-            if(curTexture == countTexture - 1) {return;}
+            if(curTexture == countTexture - 1) {
+                Event event;
+                while(window->pollEvent(event)) { }
+                return;
+            }
             curTexture++;
             background.setTexture(&texture[curTexture]);
             
