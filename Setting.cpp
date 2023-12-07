@@ -5,7 +5,7 @@ Setting::Setting() {}
 
 Setting::Setting(int save, shared_ptr<RenderWindow> window):
 window(window), save(save){
-    String name_menu[]{L"сохранить и выйдти",L"звук on/off", L"вернуться в игру"};
+    String name_menu[]{L"сохранить и выйти",L"звук on/off", L"вернуться в игру"};
     settingMenu = make_unique<GameMenu>(window, 500, 150, 3, name_menu, 40, 100);
     settingMenu->setColor(Color::White, Color::Blue, Color::Black);
     settingMenu->align(2);
