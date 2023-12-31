@@ -2,67 +2,71 @@
 
 SFMLFLAG = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-OBJECTS = Engine.o GameMenu.o Book.o Player.o FirstLoc.o Borders.o Cow.o \
-		  SecondLoc.o Save.o Setting.o Potion.o Deed.o Street.o Animation.o \
-		  Home.o FirstBoard.o SecondBoard.o main.o
+OBJECTS = FirstLoc.o SecondLoc.o Home.o Street.o \
+Cow.o Potion.o FirstBoard.o SecondBoard.o \
+Engine.o GameMenu.o Book.o Player.o Borders.o Save.o Setting.o Deed.o Animation.o main.o 
 
 run:  $(OBJECTS)
 	g++ $(OBJECTS) -o out $(SFMLFLAG)
 	./out
 
-main.o: main.cpp
-	g++ -c main.cpp 
 
-Engine.o: Engine.cpp
-	g++ -c Engine.cpp
+main.o: src/main.cpp
+	g++ -c src/main.cpp 
 
-GameMenu.o: GameMenu.cpp
-	g++ -c GameMenu.cpp
+Engine.o: src/Engine.cpp
+	g++ -c src/Engine.cpp
 
-Book.o: Book.cpp
-	g++ -c Book.cpp
+GameMenu.o: src/GameMenu.cpp
+	g++ -c src/GameMenu.cpp
 
-Player.o: Player.cpp
-	g++ -c Player.cpp
+Book.o: src/Book.cpp
+	g++ -c src/Book.cpp
 
-FirstLoc.o: FirstLoc.cpp
-	g++ -c FirstLoc.cpp
+Player.o: src/Player.cpp
+	g++ -c src/Player.cpp
 
-Borders.o: Borders.cpp
-	g++ -c Borders.cpp
+Borders.o: src/Borders.cpp
+	g++ -c src/Borders.cpp
 
-Cow.o: Cow.cpp
-	g++ -c Cow.cpp
+Save.o: src/Save.cpp
+	g++ -c src/Save.cpp
 
-SecondLoc.o: SecondLoc.cpp
-	g++ -c SecondLoc.cpp
+Setting.o: src/Setting.cpp
+	g++ -c src/Setting.cpp
 
-Save.o: Save.cpp
-	g++ -c Save.cpp
+Deed.o: src/Deed.cpp
+	g++ -c src/Deed.cpp
 
-Setting.o: Setting.cpp
-	g++ -c Setting.cpp
+Animation.o: src/Animation.cpp
+	g++ -c src/Animation.cpp
 
-Potion.o: Potion.cpp
-	g++ -c Potion.cpp
 
-Deed.o: Deed.cpp
-	g++ -c Deed.cpp
+Cow.o: src/puzzle/Cow.cpp
+	g++ -c src/puzzle/Cow.cpp
 
-Street.o: Street.cpp
-	g++ -c Street.cpp
+Potion.o: src/puzzle/Potion.cpp
+	g++ -c src/puzzle/Potion.cpp
 
-Animation.o: Animation.cpp
-	g++ -c Animation.cpp
+FirstBoard.o: src/puzzle/FirstBoard.cpp
+	g++ -c src/puzzle/FirstBoard.cpp
 
-Home.o: Home.cpp
-	g++ -c Home.cpp
+SecondBoard.o: src/puzzle/SecondBoard.cpp
+	g++ -c src/puzzle/SecondBoard.cpp
 
-FirstBoard.o: FirstBoard.cpp
-	g++ -c FirstBoard.cpp
 
-SecondBoard.o: SecondBoard.cpp
-	g++ -c SecondBoard.cpp
+FirstLoc.o: src/levl/FirstLoc.cpp 
+	g++ -c src/levl/FirstLoc.cpp
+
+SecondLoc.o: src/levl/SecondLoc.cpp 
+	g++ -c src/levl/SecondLoc.cpp
+
+Street.o: src/levl/Street.cpp 
+	g++ -c src/levl/Street.cpp
+
+Home.o: src/levl/Home.cpp
+	g++ -c src/levl/Home.cpp
+
 
 clean:
 	rm *.o out
